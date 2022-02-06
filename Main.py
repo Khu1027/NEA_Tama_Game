@@ -12,9 +12,8 @@ start_time = time.time()
 
 # -------------- Setting the Environment -------------
 pygame.display.set_caption("Tama")
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-
+screen = Variables.screen
+clock = Variables.clock
 
 # -------------- Main Code ----------------------------
 # initialising the hunger statistics
@@ -43,9 +42,10 @@ while True:
     # decreasing the hunger and displaying the hunger count
     hunger_action.decrease(1)
     text = f"Hunger: {hunger_action.stat}"
-    display = hunger_text.get_text(text)
+    # display = hunger_text.get_text(text)
 
     screen.fill(Variables.matcha)
-    screen.blit(display[0], display[1])
+    # screen.blit(display[0], display[1])
+    hunger_text.get_text(text)
     pygame.display.flip()
     clock.tick(60)

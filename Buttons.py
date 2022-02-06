@@ -22,7 +22,7 @@ class Button:
         self.bar_surf.fill(Variables.white)
         self.bar_rect = self.bar_surf.get_rect(center=self.center)
         # Displaying the surface
-        return self.bar_surf, self.bar_rect
+        Variables.screen.blit(self.bar_surf, self.bar_rect)
 
     def get_text(self, text):
         self.text = text
@@ -30,7 +30,7 @@ class Button:
         self.text_surf = Variables.game_font.render(self.text, True, "Black")
         self.text_rect = self.text_surf.get_rect(center=self.center)
         # Displaying the text
-        return self.text_surf, self.text_rect
+        Variables.screen.blit(self.text_surf, self.text_rect)
 
     def get_whole_box(self):
         self.get_surf()
