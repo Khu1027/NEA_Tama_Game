@@ -13,6 +13,7 @@ start_time = time.time()
 # -------------- Setting the Environment -------------
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
+pygame.display.set_caption("Tama")
 
 # -------------- Main Code ----------------------------
 # initialising the hunger statistics
