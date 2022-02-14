@@ -19,5 +19,6 @@ class Button:
         pygame.draw.rect(Variables.screen, self.surf_rect_colour, self.surf_rect)
         Variables.screen.blit(self.text_surf, self.text_rect)
 
-# # [This below is just testing the code]
-# feed = Button((200,50), [320,50], "Feed", (320,50))
+    def draw_text(self):
+        # for getting text only
+        Variables.screen.blit(self.text_surf, self.text_rect)
