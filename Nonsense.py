@@ -94,7 +94,7 @@ def countdown(stat, static_point):
 def background_countdown():
 
 
-# ----------------------------------- From Game_Time.py -------------------------------------------------------------------
+# ----------------------------------- From Time_draft.py -------------------------------------------------------------------
 # Evolution of the tamagotchi
 # https://www.youtube.com/watch?v=k34KT-Z9ONM&list=PLmr34YByUWUf2wo5f0g1damQ86PfzH8XC&index=5
 # https://www.geeksforgeeks.org/python-datetime-timedelta-function/
