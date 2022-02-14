@@ -31,15 +31,12 @@ while True:
 
     if Start.surf_rect.collidepoint((mx,my)):
         if click:
-            print("Start was clicked")
             Main_Game.display_screen()
     if Options.surf_rect.collidepoint((mx,my)):
         if click:
-            print("Options was clicked")
             Options_Screen.display_screen()
     if Help.surf_rect.collidepoint((mx,my)):
         if click:
-            print("Help was clicked")
             Help_Screen.display_screen()
 
     Title.draw_text()
