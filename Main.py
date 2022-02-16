@@ -19,13 +19,13 @@ clock = Variables.clock
 # initialising the hunger statistics
 hunger = 5
 static_point = time.time()
-feed_time = False
+# feed_time = False
 
 # initialising the center of the text that will be displayed
 hunger_center = (640, 360)
 hunger_text = Buttons.Button(hunger_center)
 # initialising the hunger, static_point and feed_time
-hunger_action = Actions.Action(hunger, static_point, feed_time)
+hunger_action = Actions.Action(hunger, static_point)
 
 # ------------ event loop -------------------------
 while True:

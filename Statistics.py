@@ -2,8 +2,8 @@ import json
 import New_Buttons
 buttons = New_Buttons
 
-def save_count(count):
-    with open(f"{count}.txt") as count_file:
+def save_count(count, file_name):
+    with open(file_name, "w") as count_file:
         json.dump(count, count_file)
 
 def load_count(count):
@@ -19,6 +19,7 @@ def load_count(count):
 try:
     with open("hunger.txt") as hunger_file:
         hunger = json.load(hunger_file)
+
 except:
     hunger = 0
     with open("hunger.txt", "w") as hunger_file:

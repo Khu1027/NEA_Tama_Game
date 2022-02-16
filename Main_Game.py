@@ -1,9 +1,12 @@
-import Variables
 import pygame
 import sys
+from datetime import datetime
+import time
+import Variables
 import New_Buttons
 import Statistics
-from datetime import datetime
+import Actions
+import json
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -15,6 +18,7 @@ clock = Variables.clock
 buttons = New_Buttons
 
 # -------------- Statistic counters --------------------
+
 hunger = Statistics.hunger
 happiness = Statistics.happiness
 health = Statistics.health
@@ -22,7 +26,17 @@ feed = Statistics.feed
 wash = Statistics.wash
 play = Statistics.play
 
-# Rn the game just draws text saying start
+# ------------ Setting up Actions ------------------------
+hunger_static = time.time()
+happiness_static = time.time()
+health_static = time.time()
+
+hunger_action = Actions.Action(hunger, hunger_static)
+happiness_action = Actions.Action(happiness, happiness_static)
+health_action = Actions.Action(health, health_static)
+
+
+# --------------- Rn the game just draws text saying start -------------
 Message = buttons.Button("This is where the pet will be", 200, 80, (550, 350))
 
 # ------------- Action Buttons -----------------------------
@@ -40,9 +54,9 @@ def digital_clock():
     d_clock.draw()
 
 def display_stats():
-    hunger_bar = buttons.Button(f"Hunger = {hunger}", 200, 50, (350, 25))
-    happiness_bar = buttons.Button(f"Happiness = {happiness}", 200, 50, (575, 25))
-    health_bar = buttons.Button(f"Health = {health}", 200, 50, (800, 25))
+    hunger_bar = buttons.Button(f"Hunger = {hunger_action.stat}", 200, 50, (350, 25))
+    happiness_bar = buttons.Button(f"Happiness = {happiness_action.stat}", 200, 50, (575, 25))
+    health_bar = buttons.Button(f"Health = {health_action.stat}", 200, 50, (800, 25))
     hunger_bar.draw()
     happiness_bar.draw()
     health_bar.draw()
@@ -53,13 +67,18 @@ def display_buttons():
     play_button.draw()
     heal_button.draw()
 
+def decrease_count():
+    hunger_action.decrease(2)
+    happiness_action.decrease(2)
+    health_action.decrease(2)
+
 def save_all():
-    Statistics.save_count(hunger)
-    Statistics.save_count(health)
-    Statistics.save_count(happiness)
-    Statistics.save_count(feed)
-    Statistics.save_count(play)
-    Statistics.save_count(wash)
+    Statistics.save_count(hunger_action.stat, "hunger.txt")
+    Statistics.save_count(health_action.stat, "health.txt")
+    Statistics.save_count(happiness_action.stat, "happiness.txt")
+    Statistics.save_count(feed, "feed.txt")
+    Statistics.save_count(play, "play.txt")
+    Statistics.save_count(wash, "wash.txt")
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -74,15 +93,18 @@ def display_screen():
         if feed_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # increase hunger by 1
-                pass
+                hunger_action.increase()
+
         if wash_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # increase health by 1
-                pass
+                health_action.increase()
+
         if play_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # increase happiness by 1
-                pass
+                happiness_action.increase()
+
         if heal_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # check to see if the pet is infected
@@ -90,6 +112,7 @@ def display_screen():
                 # otherwise the pet is unable to be healed (error message is shown)
                 pass
 
+        decrease_count()
         Message.draw_text()
         digital_clock()
         display_stats()
@@ -99,6 +122,7 @@ def display_screen():
         # -------------- event loop --------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                save_all()
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
