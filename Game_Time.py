@@ -16,11 +16,16 @@ def calculate_minutes(current, start):
 
 
 def calculate_days(minutes):
-    days = minutes // 24
+    days = minutes // 2
     # this is div operation. It returns the whole number value
     # In this case we are making each day last 24 minutes for testing. If the game was to run in real time...
     # one day would last 1440 minutes, so you would divide by 1440
-    return minutes
+    return days
+
+def current_day(current, start):
+    minutes = calculate_minutes(current, start)
+    day = calculate_days(minutes)
+    return day
 
 # --------------------------------------------------------------------
 
@@ -31,9 +36,10 @@ try:
     start_time = datetime.strptime(start_time, FMT)
 except:
     # formatting to script is necessary as the json file doesn't allow datetime variables
-    start_time = time_now.strftime("%d/%m/%Y %H:%M:%S")
+    start_time = time_now
+    start_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
     with open("start_time.txt", "w") as start_file:
-        json.dump(start_time, start_file)
+        json.dump(start_time_save, start_file)
     # start the new game process
     # to do this you can create a variable that checks if the game is new or not
     new_game = True

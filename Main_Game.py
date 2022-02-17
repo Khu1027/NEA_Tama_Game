@@ -4,9 +4,9 @@ from datetime import datetime
 import time
 import Variables
 import New_Buttons
-import Statistics
+import Game_Files
 import Actions
-import json
+import Evolution
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -19,12 +19,12 @@ buttons = New_Buttons
 
 # -------------- Statistic counters --------------------
 
-hunger = Statistics.hunger
-happiness = Statistics.happiness
-health = Statistics.health
-feed = Statistics.feed
-wash = Statistics.wash
-play = Statistics.play
+hunger = Game_Files.hunger
+happiness = Game_Files.happiness
+health = Game_Files.health
+feed = Game_Files.feed
+wash = Game_Files.wash
+play = Game_Files.play
 
 # ------------ Setting up Actions ------------------------
 hunger_static = time.time()
@@ -34,10 +34,7 @@ health_static = time.time()
 hunger_action = Actions.Action(hunger, hunger_static)
 happiness_action = Actions.Action(happiness, happiness_static)
 health_action = Actions.Action(health, health_static)
-
-
-# --------------- Rn the game just draws text saying start -------------
-Message = buttons.Button("This is where the pet will be", 200, 80, (550, 350))
+pet = Evolution.Evolution()
 
 # ------------- Action Buttons -----------------------------
 feed_button = buttons.Button("Feed", 200, 75, (25, 275))
@@ -67,18 +64,26 @@ def display_buttons():
     play_button.draw()
     heal_button.draw()
 
+def display_day():
+    day_display = buttons.Button(f"Hunger = {pet.display_day}", 150, 50, (25, 100))
+    day_display.draw()
+
+def display_pet(pet):
+    pet_display = buttons.Button(pet.stage, 200, 80, (550, 350))
+    pet_display.draw_text()
+
 def decrease_count():
-    hunger_action.decrease(2)
-    happiness_action.decrease(2)
-    health_action.decrease(2)
+    hunger_action.decrease(pet.countdown)
+    happiness_action.decrease(pet.countdown)
+    health_action.decrease(pet.countdown)
 
 def save_all():
-    Statistics.save_count(hunger_action.stat, "hunger.txt")
-    Statistics.save_count(health_action.stat, "health.txt")
-    Statistics.save_count(happiness_action.stat, "happiness.txt")
-    Statistics.save_count(feed, "feed.txt")
-    Statistics.save_count(play, "play.txt")
-    Statistics.save_count(wash, "wash.txt")
+    Game_Files.save_count(hunger_action.stat, "hunger.txt")
+    Game_Files.save_count(health_action.stat, "health.txt")
+    Game_Files.save_count(happiness_action.stat, "happiness.txt")
+    Game_Files.save_count(feed, "feed.txt")
+    Game_Files.save_count(play, "play.txt")
+    Game_Files.save_count(wash, "wash.txt")
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -113,8 +118,9 @@ def display_screen():
                 pass
 
         decrease_count()
-        Message.draw_text()
+        display_pet(pet)
         digital_clock()
+        display_day()
         display_stats()
         display_buttons()
 

@@ -70,3 +70,14 @@ except:
     with open("feed.txt", "w") as feed_file:
         json.dump(feed, feed_file)
 
+# # --------- Evolution Stage ---------------
+# try:
+#     with open("evolution.txt") as evolution_file:
+#         evolution = json.load(evolution_file)
+# except:
+#     evolution = 0
+#     with open("evolution.txt", "w") as evolution_file:
+#         json.dump(evolution, evolution_file)
+#
+
+

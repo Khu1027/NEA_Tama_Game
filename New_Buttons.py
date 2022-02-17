@@ -22,3 +22,4 @@ class Button:
     def draw_text(self):
         # for getting text only
         Variables.screen.blit(self.text_surf, self.text_rect)
+
