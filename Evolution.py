@@ -19,6 +19,7 @@ class Evolution:
         # Countdown = what length should the countdown be
         # Display_day = the day that will be displayed
 
+    def current_stage(self):
         current = datetime.now()
         start = Game_Time.start_time
         day = Game_Time.current_day(current, start)

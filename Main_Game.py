@@ -35,7 +35,7 @@ hunger_action = Actions.Action(hunger, hunger_static)
 happiness_action = Actions.Action(happiness, happiness_static)
 health_action = Actions.Action(health, health_static)
 pet = Evolution.Evolution()
-
+pet.current_stage()
 # ------------- Action Buttons -----------------------------
 feed_button = buttons.Button("Feed", 200, 75, (25, 275))
 wash_button = buttons.Button("Wash", 200, 75, (25, 450))
@@ -124,6 +124,7 @@ def display_screen():
         display_day()
         display_stats()
         display_buttons()
+        pet.current_stage()
 
         click = False
         # -------------- event loop --------------------
