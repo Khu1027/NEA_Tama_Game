@@ -118,13 +118,13 @@ def display_screen():
                 # otherwise the pet is unable to be healed (error message is shown)
                 pass
 
+        pet.current_stage()
         decrease_count()
         display_pet(pet)
         digital_clock()
         display_day()
         display_stats()
         display_buttons()
-        pet.current_stage()
 
         click = False
         # -------------- event loop --------------------

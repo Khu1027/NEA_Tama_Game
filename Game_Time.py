@@ -14,9 +14,13 @@ def calculate_minutes(current, start):
     minutes = total_time / 60
     return minutes
 
+def calculate_seconds(current, start):
+    time_diff = current - start
+    total_time = time_diff.total_seconds()
+    return total_time
 
 def calculate_days(minutes):
-    days = minutes // 2
+    days = minutes // 1
     # this is div operation. It returns the whole number value
     # In this case we are making each day last 24 minutes for testing. If the game was to run in real time...
     # one day would last 1440 minutes, so you would divide by 1440

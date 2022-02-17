@@ -24,26 +24,28 @@ class Evolution:
         start = Game_Time.start_time
         day = Game_Time.current_day(current, start)
         minutes = Game_Time.calculate_minutes(current, start)
+        seconds = Game_Time.calculate_seconds(current, start)
         self.display_day = day + 1
 
         if day == 0:
-            if minutes < 1:
+            if seconds < 30:
                 self.stage = "Egg"
             else:
                 self.stage = "Baby"
-        elif day == 1:
+        elif day == 1 or day == 2:
             if self.stage == "Baby":
                 # Code for playing the evolution animation
                 pass
             self.stage = "Child"
         elif day == 3:
+            self.stage = "Child"
             self.death = True
-        elif day == 4:
+        elif day == 4 or day == 5:
             if self.stage == "Child":
                 # Code for playing the evolution animation
                 pass
             self.stage = "Teenager"
-        elif day == 6:
+        elif day >= 6:
             if self.stage == "Teenager":
                 # Code for playing the evolution animation
                 pass
