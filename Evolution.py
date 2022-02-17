@@ -62,16 +62,16 @@ class Evolution:
         elif self.stage == "Baby":
             self.death = False
             self.penalties = False
-            self.countdown = 5
+            self.countdown = 2
         elif self.stage == "Child":
             self.death = False
             self.penalties = True
-            self.countdown = 10
+            self.countdown = 3
         elif self.stage == "Teenager":
             self.death = True
             self.penalties = True
-            self.countdown = 15
+            self.countdown = 4
         elif self.stage == "Adult":
             self.death = True
             self.penalties = True
-            self.countdown = 20
+            self.countdown = 5
