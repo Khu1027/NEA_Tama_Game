@@ -65,7 +65,8 @@ def display_buttons():
     heal_button.draw()
 
 def display_day():
-    day_display = buttons.Button(f"Hunger = {pet.display_day}", 150, 50, (25, 100))
+    day = int(pet.display_day)
+    day_display = buttons.Button(f"Day: {day}", 150, 50, (25, 100))
     day_display.draw()
 
 def display_pet(pet):
