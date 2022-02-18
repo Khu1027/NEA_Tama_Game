@@ -22,18 +22,18 @@ buttons = New_Buttons
 hunger = Game_Files.hunger
 happiness = Game_Files.happiness
 health = Game_Files.health
-feed = Game_Files.feed
-wash = Game_Files.wash
-play = Game_Files.play
+
 
 # ------------ Setting up Actions ------------------------
 hunger_static = time.time()
 happiness_static = time.time()
 health_static = time.time()
 
-hunger_action = Actions.Action(hunger, hunger_static)
-happiness_action = Actions.Action(happiness, happiness_static)
-health_action = Actions.Action(health, health_static)
+hunger_action = Actions.Action(hunger, hunger_static, "hunger", "hunger_penalty")
+happiness_action = Actions.Action(happiness, happiness_static, "happiness", "happiness_penalty")
+health_action = Actions.Action(health, health_static, "health", "health_penalty")
+
+# Pet evolution class object
 pet = Evolution.Evolution()
 pet.current_stage()
 # ------------- Action Buttons -----------------------------
@@ -79,12 +79,17 @@ def decrease_count():
     health_action.decrease(pet.countdown)
 
 def save_all():
+    # Saving the statistic counts
     Game_Files.save_count(hunger_action.stat, "hunger.txt")
     Game_Files.save_count(health_action.stat, "health.txt")
     Game_Files.save_count(happiness_action.stat, "happiness.txt")
-    Game_Files.save_count(feed, "feed.txt")
-    Game_Files.save_count(play, "play.txt")
-    Game_Files.save_count(wash, "wash.txt")
+
+    Game_Files.save_count(Game_Files.feed, "feed.txt")
+    Game_Files.save_count(Game_Files.wash, "wash.txt")
+    Game_Files.save_count(Game_Files.play, "play.txt")
+    Game_Files.save_count(hunger_action.penalty, "hunger_penalty.txt")
+    Game_Files.save_count(health_action.penalty, "health_penalty.txt")
+    Game_Files.save_count(happiness_action.penalty, "happiness_penalty.txt")
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -100,16 +105,19 @@ def display_screen():
             if click:
                 # increase hunger by 1
                 hunger_action.increase()
+                Game_Files.feed +=1
 
         if wash_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # increase health by 1
                 health_action.increase()
+                Game_Files.wash +=1
 
         if play_button.surf_rect.collidepoint((mx, my)):
             if click:
                 # increase happiness by 1
                 happiness_action.increase()
+                Game_Files.play +=1
 
         if heal_button.surf_rect.collidepoint((mx, my)):
             if click:

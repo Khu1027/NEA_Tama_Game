@@ -70,6 +70,36 @@ except:
     with open("feed.txt", "w") as feed_file:
         json.dump(feed, feed_file)
 
+
+# ------------- hunger_penalty -----------------
+try:
+    with open("hunger_penalty.txt") as hunger_penalty_file:
+        hunger_penalty = json.load(hunger_penalty_file)
+except:
+    hunger_penalty = 0
+    with open("hunger_penalty.txt", "w") as hunger_penalty_file:
+        json.dump(hunger_penalty, hunger_penalty_file)
+
+
+# ------------- happiness_penalty -----------------
+try:
+    with open("happiness_penalty.txt") as happiness_penalty_file:
+        happiness_penalty = json.load(happiness_penalty_file)
+except:
+    happiness_penalty = 0
+    with open("happiness_penalty.txt", "w") as happiness_penalty_file:
+        json.dump(happiness_penalty, happiness_penalty_file)
+
+
+# ------------- health_penalty -----------------
+try:
+    with open("health_penalty.txt") as health_penalty_file:
+        health_penalty = json.load(health_penalty_file)
+except:
+    health_penalty = 0
+    with open("health_penalty.txt", "w") as health_penalty_file:
+        json.dump(health_penalty, health_penalty_file)
+
 # # --------- Evolution Stage ---------------
 # try:
 #     with open("evolution.txt") as evolution_file:
