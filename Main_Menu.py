@@ -5,7 +5,7 @@ import pygame
 import sys
 import Variables
 import Main_Game
-import Options_Screen
+import Settings_Screen
 import Help_Screen
 
 # -------------- Initialising Variables -------------
@@ -19,7 +19,7 @@ buttons = New_Buttons
 
 Title = buttons.Button("Tamagotchi!", 200, 80, (550, 100))
 Start = buttons.Button("Start", 200, 80, (550, 250))
-Options = buttons.Button("Options", 200, 80, (550, 400))
+Settings = buttons.Button("Settings", 200, 80, (550, 400))
 Help = buttons.Button("Help", 200, 80, (550, 550))
 
 
@@ -32,16 +32,16 @@ while True:
     if Start.surf_rect.collidepoint((mx,my)):
         if click:
             Main_Game.display_screen()
-    if Options.surf_rect.collidepoint((mx,my)):
+    if Settings.surf_rect.collidepoint((mx,my)):
         if click:
-            Options_Screen.display_screen()
+            Settings_Screen.display_screen()
     if Help.surf_rect.collidepoint((mx,my)):
         if click:
             Help_Screen.display_screen()
 
     Title.draw_text()
     Start.draw()
-    Options.draw()
+    Settings.draw()
     Help.draw()
 
     click = False

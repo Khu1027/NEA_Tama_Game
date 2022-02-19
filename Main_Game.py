@@ -18,11 +18,9 @@ clock = Variables.clock
 buttons = New_Buttons
 
 # -------------- Statistic counters --------------------
-
 hunger = Game_Files.hunger
 happiness = Game_Files.happiness
 health = Game_Files.health
-
 
 # ------------ Setting up Actions ------------------------
 hunger_static = time.time()
@@ -36,12 +34,14 @@ health_action = Actions.Action(health, health_static, "health", "health_penalty"
 # Pet evolution class object
 pet = Evolution.Evolution()
 pet.current_stage()
+
 # ------------- Action Buttons -----------------------------
 feed_button = buttons.Button("Feed", 200, 75, (25, 275))
 wash_button = buttons.Button("Wash", 200, 75, (25, 450))
 play_button = buttons.Button("Play", 200, 75, (1055, 275))
 heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
+action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
 
 # ------------ Subroutines ---------------------------------------
 def digital_clock():
@@ -52,8 +52,8 @@ def digital_clock():
 
 def display_stats():
     hunger_bar = buttons.Button(f"Hunger = {hunger_action.stat}", 200, 50, (350, 25))
-    happiness_bar = buttons.Button(f"Happiness = {happiness_action.stat}", 200, 50, (575, 25))
-    health_bar = buttons.Button(f"Health = {health_action.stat}", 200, 50, (800, 25))
+    happiness_bar = buttons.Button(f"Happiness = {happiness_action.stat}", 200, 50, (800, 25))
+    health_bar = buttons.Button(f"Health = {health_action.stat}", 200, 50, (575, 25))
     hunger_bar.draw()
     happiness_bar.draw()
     health_bar.draw()
@@ -83,10 +83,11 @@ def save_all():
     Game_Files.save_count(hunger_action.stat, "hunger.txt")
     Game_Files.save_count(health_action.stat, "health.txt")
     Game_Files.save_count(happiness_action.stat, "happiness.txt")
-
+    # Saving the action button counts
     Game_Files.save_count(Game_Files.feed, "feed.txt")
     Game_Files.save_count(Game_Files.wash, "wash.txt")
     Game_Files.save_count(Game_Files.play, "play.txt")
+    # Saving the penalty points
     Game_Files.save_count(hunger_action.penalty, "hunger_penalty.txt")
     Game_Files.save_count(health_action.penalty, "health_penalty.txt")
     Game_Files.save_count(happiness_action.penalty, "happiness_penalty.txt")
@@ -94,6 +95,7 @@ def save_all():
 # ---------------------- Main Game Loop ----------------------------------------------
 
 def display_screen():
+    # https://www.youtube.com/watch?v=YOCt8nsQqEo&t=90s
     click = False
     running = True
     while running:
@@ -101,30 +103,46 @@ def display_screen():
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
 
-        if feed_button.surf_rect.collidepoint((mx, my)):
-            if click:
-                # increase hunger by 1
-                hunger_action.increase()
-                Game_Files.feed +=1
+        if pet.stage != ("Egg"):
+            if feed_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    # increase hunger by 1
+                    hunger_action.increase()
+                    Game_Files.feed +=1
 
-        if wash_button.surf_rect.collidepoint((mx, my)):
-            if click:
-                # increase health by 1
-                health_action.increase()
-                Game_Files.wash +=1
+            if wash_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    # increase health by 1
+                    health_action.increase()
+                    Game_Files.wash +=1
 
-        if play_button.surf_rect.collidepoint((mx, my)):
-            if click:
-                # increase happiness by 1
-                happiness_action.increase()
-                Game_Files.play +=1
+            if play_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    # increase happiness by 1
+                    happiness_action.increase()
+                    Game_Files.play +=1
 
-        if heal_button.surf_rect.collidepoint((mx, my)):
-            if click:
-                # check to see if the pet is infected
-                # if the pet is sick (random out of 3 to heal the pet)
-                # otherwise the pet is unable to be healed (error message is shown)
-                pass
+            if heal_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    # check to see if the pet is infected
+                    # if the pet is sick (random out of 3 to heal the pet)
+                    # otherwise the pet is unable to be healed (error message is shown)
+                    pass
+        else:
+            if feed_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    action_error_button.draw()
+            if wash_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    action_error_button.draw()
+            if play_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    action_error_button.draw()
+            if heal_button.surf_rect.collidepoint((mx, my)):
+                if click:
+                    action_error_button.draw()
+
+
 
         pet.current_stage()
         decrease_count()
