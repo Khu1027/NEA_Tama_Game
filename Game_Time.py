@@ -38,6 +38,7 @@ try:
         start_time = json.load(start_file)
     # returning the script variable to a datetime variable
     start_time = datetime.strptime(start_time, FMT)
+    new_game = False
 except:
     # This will be what alerts a new_game screen to load
     # after the new game sequence, then the time file will be made
@@ -52,6 +53,6 @@ except:
 
 # Checks if the game is a new file or continued. it is checked if it's new by the main_pet file
 # If the new_game = false then the time is calculated between the current time and the start time to give the days
-if new_game == False:
-    minutes_passed = calculate_minutes(time_now, start_time)
-    days = calculate_days(minutes_passed)
+# if new_game == False:
+#     minutes_passed = calculate_minutes(time_now, start_time)
+#     days = calculate_days(minutes_passed)

@@ -142,6 +142,10 @@ def display_screen():
                 if click:
                     action_error_button.draw()
 
+        if pet.stage == "Adult":
+            save_all()
+            pygame.quit()
+            sys.exit()
 
 
         pet.current_stage()

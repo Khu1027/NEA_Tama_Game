@@ -7,6 +7,8 @@ import Variables
 import Main_Game
 import Settings_Screen
 import Help_Screen
+import NewGame_Screen
+import Game_Time
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -31,6 +33,10 @@ while True:
 
     if Start.surf_rect.collidepoint((mx,my)):
         if click:
+            # if Game_Time.new_game:
+            #     NewGame_Screen.display_screen()
+            # if not Game_Time.new_game:
+            #     Main_Game.display_screen()
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):
         if click:

@@ -15,6 +15,7 @@ class Action:
         # if they did then the corresponding action will be taken
         # self.act_time = act_time
         self.static_point = static_point
+        self.penalty_static_point = static_point
         self.stat_name = stat_name
         self.penalty_file = penalty_file
         # Warning outputs a warning to the user to interact with the pet before adding penalties
@@ -46,6 +47,7 @@ class Action:
         # countdown_length is the period in which the statistic should decrease by
 
         current_time = time.time()
+        penalty_time = time.time()
         if current_time - self.static_point >= countdown_length:
             if 0 < self.stat <= 5:
                 self.stat -=1
@@ -57,6 +59,8 @@ class Action:
             #     self.stat -= 1
             #     self.static_point = current_time
 
+        if penalty_time - self.penalty_static_point >= countdown_length:
             # as the decrease function is working, it will check for any penalties that are given out
-            if Main_Game.pet.stage != ("Egg" or "Baby"):
+            if (Main_Game.pet.stage != "Egg") and (Main_Game.pet.stage != "Baby"):
                 self.penalty_check()
+                self.penalty_static_point = penalty_time
