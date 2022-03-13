@@ -10,17 +10,19 @@ FMT = "%d/%m/%Y %H:%M:%S"
 class Evolution:
     def __init__(self):
         self.stage = None
-        self.death = None
-        # self.penalties = None
+        self.mortal = None
+        self.penalties = None
         self.countdown = None
         self.display_day = None
+        self.dead = None
         # Stage = the stage that the pet is at
-        # Death = If the pet can die at this stage or not
+        # Mortal = If the pet can die at this stage or not
         # Penalties = If penalties are to be calculated at this stage
         # Countdown = what length should the countdown be
         # Display_day = the day that will be displayed
 
     def current_stage(self):
+        # evolution over time calculating variables
         current = datetime.now()
         start = Game_Time.start_time
         day = Game_Time.current_day(current, start)
@@ -28,20 +30,26 @@ class Evolution:
         seconds = Game_Time.calculate_seconds(current, start)
         self.display_day = day + 1
 
+        # specific evolution calculating variables
+        self.penalties = Game_Files.happiness_penalty + Game_Files.hunger_penalty + Game_Files.health_penalty
+
         if day == 0:
             if seconds < 30:
                 self.stage = "Egg"
             else:
                 self.stage = "Baby"
+
         elif day == 1 or day == 2:
             if self.stage == "Baby":
                 # Code for playing the evolution animation
                 pass
             self.stage = "Child"
-            self.death = False
+            self.mortal = False
+
         elif day == 3:
             self.stage = "Child"
-            self.death = True
+            self.mortal = True
+
         elif day == 4 or day == 5:
             if self.stage == "Child":
                 # resetting the penalties
@@ -50,9 +58,14 @@ class Evolution:
                 Game_Files.happiness_penalty = 0
                 # Code for playing the evolution animation
                 pass
-            self.stage = "Teenager"
+            print(self.penalties)
+            if 0 <= self.penalties < 75:
+                self.stage = "TeenagerG"
+            elif 75 <= self.penalties < 150:
+                self.stage = "TeenagerB"
+                
         elif day >= 6:
-            if self.stage == "Teenager":
+            if self.stage == "TeenagerG" or self.stage == "TeenagerB":
                 # resetting the penalties
                 Game_Files.hunger_penalty = 0
                 Game_Files.health_penalty = 0
@@ -63,24 +76,24 @@ class Evolution:
 
         # Giving each of the stages of the pet different attributes
         if self.stage == "Egg":
-            self.death = False
+            self.mortal = False
             # self.penalties = False
             self.countdown = 1
             # the self.countdown should be 0 as in the user should be unable to feed the pet
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
         elif self.stage == "Baby":
-            self.death = False
+            self.mortal = False
             # self.penalties = False
             self.countdown = 2
         elif self.stage == "Child":
             # self.penalties = True
             self.countdown = 3
-        elif self.stage == "Teenager":
-            self.death = True
+        elif self.stage == "TeenagerG" or self.stage == "TeenagerB":
+            self.mortal = True
             # self.penalties = True
             self.countdown = 4
         elif self.stage == "Adult":
-            self.death = True
+            self.mortal = True
             # self.penalties = True
             self.countdown = 5

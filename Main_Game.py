@@ -31,7 +31,7 @@ hunger_action = Actions.Action(hunger, hunger_static, "hunger", "hunger_penalty"
 happiness_action = Actions.Action(happiness, happiness_static, "happiness", "happiness_penalty")
 health_action = Actions.Action(health, health_static, "health", "health_penalty")
 
-# Pet evolution class object
+# ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
 pet.current_stage()
 
