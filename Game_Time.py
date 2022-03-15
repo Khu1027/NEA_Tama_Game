@@ -1,4 +1,5 @@
 import json
+import Main_Game
 import time
 from datetime import date, datetime, timedelta
 
@@ -32,7 +33,6 @@ def current_day(current, start):
     return day
 
 # --------------------------------------------------------------------
-
 try:
     with open('start_time.txt') as start_file:
         start_time = json.load(start_file)
@@ -51,8 +51,3 @@ except:
     # to do this you can create a variable that checks if the game is new or not
     new_game = True
 
-# Checks if the game is a new file or continued. it is checked if it's new by the main_pet file
-# If the new_game = false then the time is calculated between the current time and the start time to give the days
-# if new_game == False:
-#     minutes_passed = calculate_minutes(time_now, start_time)
-#     days = calculate_days(minutes_passed)

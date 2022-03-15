@@ -7,7 +7,7 @@ def save_count(count, file_name):
         json.dump(count, count_file)
 
 def load_count(count):
-    with open(f"{count}.txt") as count_file:
+    with open(count) as count_file:
         new_count = json.load(count_file)
     return new_count
 
@@ -100,14 +100,11 @@ except:
     with open("health_penalty.txt", "w") as health_penalty_file:
         json.dump(health_penalty, health_penalty_file)
 
-# # --------- Evolution Stage ---------------
-# try:
-#     with open("evolution.txt") as evolution_file:
-#         evolution = json.load(evolution_file)
-# except:
-#     evolution = 0
-#     with open("evolution.txt", "w") as evolution_file:
-#         json.dump(evolution, evolution_file)
-#
-
-
+# --------- Evolution Stage ---------------
+try:
+    with open("evolution.txt") as evolution_file:
+        evolution = json.load(evolution_file)
+except:
+    evolution = "Egg"
+    with open("evolution.txt", "w") as evolution_file:
+        json.dump(evolution, evolution_file)

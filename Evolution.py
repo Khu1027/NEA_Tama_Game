@@ -2,24 +2,44 @@
 import Game_Time
 import Game_Files
 from datetime import datetime
+
 FMT = "%d/%m/%Y %H:%M:%S"
+
 
 # start_time = Game_Time.start_time
 # current_time = datetime.now().strptime("%d/%m/%Y %H:%M:%S")
 
 class Evolution:
     def __init__(self):
-        self.stage = None
+        self.stage = Game_Files.evolution
         self.mortal = None
         self.penalties = None
         self.countdown = None
         self.display_day = None
         self.dead = None
+        self.penalty_reset = False
+        self.change_stage = False
+        self.change_stage_completed = False
         # Stage = the stage that the pet is at
         # Mortal = If the pet can die at this stage or not
         # Penalties = If penalties are to be calculated at this stage
         # Countdown = what length should the countdown be
         # Display_day = the day that will be displayed
+        # Dead = If the pet is dead or not
+        # Penalty Reset = To signify to the main code if the penalties should be reset or not
+        # Change_Stage = A signifier that the pet has changed stage = saves penalty files so
+        # that the evolution can be determined
+        # Change_stage_completed = current solution for the files being saved being detected
+
+    def count_penalties(self):
+        # This subroutine will first load all the new penalties and then add them to get the total penalties
+        # The self.penalties will add up all the penalties that have accumulated so far
+        Game_Files.hunger_penalty = Game_Files.load_count("hunger_penalty.txt")
+        Game_Files.happiness_penalty = Game_Files.load_count("happiness_penalty.txt")
+        Game_Files.health_penalty = Game_Files.load_count("health_penalty.txt")
+        print(Game_Files.happiness_penalty, Game_Files.hunger_penalty, Game_Files.health_penalty)
+        self.penalties = Game_Files.happiness_penalty + Game_Files.hunger_penalty + Game_Files.health_penalty
+        #print(self.penalties)
 
     def current_stage(self):
         # evolution over time calculating variables
@@ -30,50 +50,65 @@ class Evolution:
         seconds = Game_Time.calculate_seconds(current, start)
         self.display_day = day + 1
 
-        # specific evolution calculating variables
-        self.penalties = Game_Files.happiness_penalty + Game_Files.hunger_penalty + Game_Files.health_penalty
-
         if day == 0:
             if seconds < 30:
                 self.stage = "Egg"
             else:
                 self.stage = "Baby"
+                # Changing the evolution stage to the updated one
+                Game_Files.evolution = "Baby"
 
-        elif day == 1 or day == 2:
+        elif day == 1:
             if self.stage == "Baby":
-                # Code for playing the evolution animation
-                pass
-            self.stage = "Child"
-            self.mortal = False
+                # These if statements flag the Main_Game that an evolution has taken place so that it can save everything
+                if not self.change_stage:
+                    self.change_stage = True
+                if self.change_stage_completed:
+                    # Code for playing the evolution animation
+                    self.stage = "Child"
+                    Game_Files.evolution = "Child"
+                    self.mortal = False
+                    self.change_stage_completed = False
 
         elif day == 3:
-            self.stage = "Child"
+            # self.stage = "Child"
             self.mortal = True
 
-        elif day == 4 or day == 5:
+        elif day == 4:
             if self.stage == "Child":
-                # resetting the penalties
-                Game_Files.hunger_penalty = 0
-                Game_Files.health_penalty = 0
-                Game_Files.happiness_penalty = 0
-                # Code for playing the evolution animation
-                pass
-            print(self.penalties)
-            if 0 <= self.penalties < 75:
-                self.stage = "TeenagerG"
-            elif 75 <= self.penalties < 150:
-                self.stage = "TeenagerB"
-                
+                if not self.change_stage:
+                    self.change_stage = True
+                if self.change_stage_completed:
+                    self.count_penalties()
+                    # Code for playing the evolution animation
+                    # Changing the type of teenager with the amount of penalties gained
+                    if 0 <= self.penalties < 75:
+                        print(self.penalties)
+                        self.stage = "TeenagerG"
+                        Game_Files.evolution = "TeenagerG"
+                    elif 75 <= self.penalties:
+                        print(self.penalties)
+                        self.stage = "TeenagerB"
+                        Game_Files.evolution = "TeenagerB"
+                    self.change_stage_completed = False
+                    # resetting the penalties
+                    self.penalty_reset = True
+
         elif day >= 6:
             if self.stage == "TeenagerG" or self.stage == "TeenagerB":
-                # resetting the penalties
-                Game_Files.hunger_penalty = 0
-                Game_Files.health_penalty = 0
-                Game_Files.happiness_penalty = 0
-                # Code for playing the evolution animation
-                pass
-            self.stage = "Adult"
+                if not self.change_stage:
+                    self.change_stage = True
+                if self.change_stage_completed:
+                    self.count_penalties()
+                    # Code for playing the evolution animation
+                    self.stage = "Adult"
+                    Game_Files.evolution = "Adult"
+                    self.change_stage_completed = False
+                    # resetting the penalties
+                    self.penalty_reset = True
 
+
+# ------------------------------ Attributes of Stages ---------------------------------------------
         # Giving each of the stages of the pet different attributes
         if self.stage == "Egg":
             self.mortal = False

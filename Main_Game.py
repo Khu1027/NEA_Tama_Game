@@ -27,9 +27,9 @@ hunger_static = time.time()
 happiness_static = time.time()
 health_static = time.time()
 
-hunger_action = Actions.Action(hunger, hunger_static, "hunger", "hunger_penalty")
-happiness_action = Actions.Action(happiness, happiness_static, "happiness", "happiness_penalty")
-health_action = Actions.Action(health, health_static, "health", "health_penalty")
+hunger_action = Actions.Action(hunger, hunger_static, "hunger", "hunger_penalty.txt")
+happiness_action = Actions.Action(happiness, happiness_static, "happiness", "happiness_penalty.txt")
+health_action = Actions.Action(health, health_static, "health", "health_penalty.txt")
 
 # ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
@@ -91,6 +91,24 @@ def save_all():
     Game_Files.save_count(hunger_action.penalty, "hunger_penalty.txt")
     Game_Files.save_count(health_action.penalty, "health_penalty.txt")
     Game_Files.save_count(happiness_action.penalty, "happiness_penalty.txt")
+    # Saving Evolution stage
+    Game_Files.save_count(Game_Files.evolution, "evolution.txt")
+
+def pet_check():
+    # Whenever the pet changes stages the files will save all the files (and the penalty)
+    if pet.change_stage:
+        save_all()
+        pet.change_stage_completed = True
+        pet.change_stage = False
+
+    if pet.penalty_reset:
+        hunger_action.penalty = 0
+        happiness_action.penalty = 0
+        health_action.penalty = 0
+        Game_Files.health_penalty = 0
+        Game_Files.hunger_penalty = 0
+        Game_Files.health_penalty = 0
+        pet.penalty_reset = False
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -103,7 +121,7 @@ def display_screen():
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
 
-        if pet.stage != ("Egg"):
+        if pet.stage != "Egg":
             if feed_button.surf_rect.collidepoint((mx, my)):
                 if click:
                     # increase hunger by 1
@@ -143,12 +161,15 @@ def display_screen():
                     action_error_button.draw()
 
         pet.current_stage()
+        #pet.count_penalties()
         decrease_count()
+        pet_check()
         display_pet(pet)
         digital_clock()
         display_day()
         display_stats()
         display_buttons()
+
 
         click = False
         # -------------- event loop --------------------
