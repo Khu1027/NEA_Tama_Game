@@ -34,11 +34,11 @@ class Evolution:
     def count_penalties(self):
         # This subroutine will first load all the new penalties and then add them to get the total penalties
         # The self.penalties will add up all the penalties that have accumulated so far
-        Game_Files.hunger_penalty = Game_Files.load_count("hunger_penalty.txt")
-        Game_Files.happiness_penalty = Game_Files.load_count("happiness_penalty.txt")
-        Game_Files.health_penalty = Game_Files.load_count("health_penalty.txt")
-        print(Game_Files.happiness_penalty, Game_Files.hunger_penalty, Game_Files.health_penalty)
-        self.penalties = Game_Files.happiness_penalty + Game_Files.hunger_penalty + Game_Files.health_penalty
+        hunger_penalty = Game_Files.load_count("hunger_penalty.txt")
+        happiness_penalty = Game_Files.load_count("happiness_penalty.txt")
+        health_penalty = Game_Files.load_count("health_penalty.txt")
+        #print(happiness_penalty, hunger_penalty, health_penalty)
+        self.penalties = (happiness_penalty + hunger_penalty + health_penalty)
         #print(self.penalties)
 
     def current_stage(self):
