@@ -27,9 +27,9 @@ hunger_static = time.time()
 happiness_static = time.time()
 health_static = time.time()
 
-hunger_action = Actions.Action(hunger, hunger_static, "hunger", "hunger_penalty.txt")
-happiness_action = Actions.Action(happiness, happiness_static, "happiness", "happiness_penalty.txt")
-health_action = Actions.Action(health, health_static, "health", "health_penalty.txt")
+hunger_action = Actions.Action(hunger, hunger_static, "hunger", Game_Files.hunger_penalty)
+happiness_action = Actions.Action(happiness, happiness_static, "happiness", Game_Files.happiness_penalty)
+health_action = Actions.Action(health, health_static, "health", Game_Files.health_penalty)
 
 # ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
@@ -79,19 +79,22 @@ def decrease_count():
     health_action.decrease(pet.countdown)
 
 def save_all():
-    # Saving the statistic counts
+    # --- Saving the statistic counts ---
     Game_Files.save_count(hunger_action.stat, "hunger.txt")
     Game_Files.save_count(health_action.stat, "health.txt")
     Game_Files.save_count(happiness_action.stat, "happiness.txt")
-    # Saving the action button counts
+    # --- Saving the action button counts ---
     Game_Files.save_count(Game_Files.feed, "feed.txt")
     Game_Files.save_count(Game_Files.wash, "wash.txt")
     Game_Files.save_count(Game_Files.play, "play.txt")
-    # Saving the penalty points
-    Game_Files.save_count(hunger_action.penalty, "hunger_penalty.txt")
-    Game_Files.save_count(health_action.penalty, "health_penalty.txt")
-    Game_Files.save_count(happiness_action.penalty, "happiness_penalty.txt")
-    # Saving Evolution stage
+    # --- Saving the penalty points ---
+    # Saving the Game_Files penalties as the action penalties
+    mirror_penalties()
+    # Saving penalties to txt files
+    Game_Files.save_count(Game_Files.hunger_penalty, "hunger_penalty.txt")
+    Game_Files.save_count(Game_Files.health_penalty, "health_penalty.txt")
+    Game_Files.save_count(Game_Files.happiness_penalty, "happiness_penalty.txt")
+    # --- Saving Evolution stage ---
     Game_Files.save_count(Game_Files.evolution, "evolution.txt")
 
 def pet_check():
@@ -99,19 +102,22 @@ def pet_check():
     if pet.change_stage:
         save_all()
         # This code was used to test the penalty system
-        pet.count_penalties()
-        print(pet.penalties)
-        pet.change_stage_completed = True
+        # pet.count_penalties()
+        # print(pet.penalties)
         pet.change_stage = False
 
     if pet.penalty_reset:
         hunger_action.penalty = 0
         happiness_action.penalty = 0
         health_action.penalty = 0
-        Game_Files.health_penalty = 0
-        Game_Files.hunger_penalty = 0
-        Game_Files.health_penalty = 0
         pet.penalty_reset = False
+
+def mirror_penalties():
+    # This saves the action penalties as the Game_Files penalties so that it can be used in
+    # Evolution.py without any circular import errors
+    Game_Files.hunger_penalty = hunger_action.penalty
+    Game_Files.health_penalty = health_action.penalty
+    Game_Files.happiness_penalty = happiness_action.penalty
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -163,9 +169,9 @@ def display_screen():
                 if click:
                     action_error_button.draw()
 
-        pet_check()
+        mirror_penalties()
         pet.current_stage()
-        #pet.count_penalties()
+        pet_check()
         decrease_count()
         display_pet(pet)
         digital_clock()

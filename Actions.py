@@ -9,7 +9,7 @@ import Main_Game
 buttons = New_Buttons
 
 class Action:
-    def __init__(self, stat, static_point, stat_name, penalty_file): # act_time
+    def __init__(self, stat, static_point, stat_name, penalty): # act_time
         self.stat = stat
         # act_time will tell us if the user has interacted with action
         # if they did then the corresponding action will be taken
@@ -17,11 +17,10 @@ class Action:
         self.static_point = static_point
         self.penalty_static_point = static_point
         self.stat_name = stat_name
-        self.penalty_file = penalty_file
-        # Warning outputs a warning to the user to interact with the pet before adding penalties
         # Count = to ensure the penalty is not given for a count of 2
         self.warning = None
-        self.penalty = Game_Files.load_count(self.penalty_file)
+        self.penalty = penalty
+        # penalty is being used as the exact Game_Files value
 
 
     def penalty_check(self):
@@ -35,6 +34,7 @@ class Action:
                     self.warning = True
                 if self.warning:
                     self.penalty +=1
+                print(self.penalty)
 
     def increase(self):
         # When the user interacts with a button and increases the statistic
