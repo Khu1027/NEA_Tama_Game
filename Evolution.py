@@ -19,7 +19,6 @@ class Evolution:
         self.dead = None
         self.penalty_reset = False
         self.change_stage = False
-        #self.change_stage_completed = False
 
         # Stage = the stage that the pet is at
         # Mortal = If the pet can die at this stage or not
@@ -31,17 +30,6 @@ class Evolution:
         # Change_Stage = A signifier that the pet has changed stage = saves penalty files so
         # that the evolution can be determined
         # Change_stage_completed = current solution for the files being saved being detected
-
-    # First version of the count_penalties
-    # def count_penalties(self):
-    #     # This subroutine will first load all the new penalties and then add them to get the total penalties
-    #     # The self.penalties will add up all the penalties that have accumulated so far
-    #     hunger_penalty = Game_Files.load_count("hunger_penalty.txt")
-    #     happiness_penalty = Game_Files.load_count("happiness_penalty.txt")
-    #     health_penalty = Game_Files.load_count("health_penalty.txt")
-    #     #print(happiness_penalty, hunger_penalty, health_penalty)
-    #     self.penalties = (happiness_penalty + hunger_penalty + health_penalty)
-    #     #print(self.penalties)
 
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty

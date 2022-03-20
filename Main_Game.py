@@ -101,9 +101,6 @@ def pet_check():
     # Whenever the pet changes stages the files will save all the files (and the penalty)
     if pet.change_stage:
         save_all()
-        # This code was used to test the penalty system
-        # pet.count_penalties()
-        # print(pet.penalties)
         pet.change_stage = False
 
     if pet.penalty_reset:
