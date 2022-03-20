@@ -99,8 +99,8 @@ def pet_check():
     if pet.change_stage:
         save_all()
         # This code was used to test the penalty system
-        # pet.count_penalties()
-        # print(pet.penalties)
+        pet.count_penalties()
+        print(pet.penalties)
         pet.change_stage_completed = True
         pet.change_stage = False
 
