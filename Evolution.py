@@ -27,9 +27,8 @@ class Evolution:
         # Display_day = the day that will be displayed
         # Dead = If the pet is dead or not
         # Penalty Reset = To signify to the main code if the penalties should be reset or not
-        # Change_Stage = A signifier that the pet has changed stage = saves penalty files so
-        # that the evolution can be determined
-        # Change_stage_completed = current solution for the files being saved being detected
+        # Change_Stage = A signifier that the pet has changed stage = saves files
+
 
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
