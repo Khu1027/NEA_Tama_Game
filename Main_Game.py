@@ -78,25 +78,41 @@ def decrease_count():
     happiness_action.decrease(pet.countdown)
     health_action.decrease(pet.countdown)
 
+# def save_all():
+#     # --- Saving the statistic counts ---
+#     Game_Files.save_count(hunger_action.stat, "hunger.txt")
+#     Game_Files.save_count(health_action.stat, "health.txt")
+#     Game_Files.save_count(happiness_action.stat, "happiness.txt")
+#     # --- Saving the action button counts ---
+#     Game_Files.save_count(Game_Files.feed, "feed.txt")
+#     Game_Files.save_count(Game_Files.wash, "wash.txt")
+#     Game_Files.save_count(Game_Files.play, "play.txt")
+#     # --- Saving the penalty points ---
+#     # Saving the Game_Files penalties as the action penalties
+#     mirror_penalties()
+#     # Saving penalties to txt files
+#     Game_Files.save_count(Game_Files.hunger_penalty, "hunger_penalty.txt")
+#     Game_Files.save_count(Game_Files.health_penalty, "health_penalty.txt")
+#     Game_Files.save_count(Game_Files.happiness_penalty, "happiness_penalty.txt")
+#     # --- Saving Evolution stage ---
+#     Game_Files.save_count(Game_Files.evolution, "evolution.txt")
+
 def save_all():
     # --- Saving the statistic counts ---
-    Game_Files.save_count(hunger_action.stat, "hunger.txt")
-    Game_Files.save_count(health_action.stat, "health.txt")
-    Game_Files.save_count(happiness_action.stat, "happiness.txt")
+    status = [hunger_action.stat, happiness_action.stat,health_action.stat]
+    Game_Files.save_count(status, "pet_status.txt")
     # --- Saving the action button counts ---
-    Game_Files.save_count(Game_Files.feed, "feed.txt")
-    Game_Files.save_count(Game_Files.wash, "wash.txt")
-    Game_Files.save_count(Game_Files.play, "play.txt")
+    user_Actions_2 = [Game_Files.feed, Game_Files.wash, Game_Files.play]
+    Game_Files.save_count(user_Actions_2, "user_actions.txt")
     # --- Saving the penalty points ---
     # Saving the Game_Files penalties as the action penalties
     mirror_penalties()
     # Saving penalties to txt files
-    Game_Files.save_count(Game_Files.hunger_penalty, "hunger_penalty.txt")
-    Game_Files.save_count(Game_Files.health_penalty, "health_penalty.txt")
-    Game_Files.save_count(Game_Files.happiness_penalty, "happiness_penalty.txt")
-    # --- Saving Evolution stage ---
+    penalties = [Game_Files.hunger_penalty, Game_Files.happiness_penalty, Game_Files.health_penalty]
+    Game_Files.save_count(penalties, "penalties.txt")
+    # --- Saving Evolution_2 stage ---
     Game_Files.save_count(Game_Files.evolution, "evolution.txt")
-
+    
 def pet_check():
     # Whenever the pet changes stages the files will save all the files (and the penalty)
     if pet.change_stage:

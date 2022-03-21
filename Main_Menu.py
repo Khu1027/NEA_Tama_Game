@@ -7,8 +7,8 @@ import Variables
 import Main_Game
 import Settings_Screen
 import Help_Screen
-import NewGame_Screen
-import Game_Time
+#import NewGame_Screen
+#import Game_Time
 
 # -------------- Initialising Variables -------------
 pygame.init()
