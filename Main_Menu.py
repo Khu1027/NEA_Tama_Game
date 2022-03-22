@@ -19,10 +19,10 @@ screen = Variables.screen
 clock = Variables.clock
 buttons = New_Buttons
 
-Title = buttons.Button("Tamagotchi!", 200, 80, (550, 100))
-Start = buttons.Button("Start", 200, 80, (550, 250))
-Settings = buttons.Button("Settings", 200, 80, (550, 400))
-Help = buttons.Button("Help", 200, 80, (550, 550))
+Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
+Start = buttons.Button("Start", 200, 60, (550, 350))
+Settings = buttons.Button("Settings", 200, 60, (550, 450))
+Help = buttons.Button("Help", 200, 60, (550, 550))
 
 
 click = False
