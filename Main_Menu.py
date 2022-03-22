@@ -8,7 +8,7 @@ import Main_Game
 import Settings_Screen
 import Help_Screen
 #import NewGame_Screen
-#import Game_Time
+
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -26,6 +26,7 @@ Help = buttons.Button("Help", 200, 80, (550, 550))
 
 
 click = False
+
 # ------------ event loop -------------------------
 while True:
     mx, my = pygame.mouse.get_pos()
