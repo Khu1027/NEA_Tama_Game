@@ -4,7 +4,7 @@ import New_Buttons
 import pygame
 import sys
 import Variables
-import Main_Game
+
 import Settings_Screen
 import Help_Screen
 #import NewGame_Screen
@@ -38,6 +38,7 @@ while True:
             #     NewGame_Screen.display_screen()
             # if not Game_Time.new_game:
             #     Main_Game.display_screen()
+            import Main_Game
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):
         if click:
