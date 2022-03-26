@@ -5,6 +5,7 @@ import time
 import Variables
 import New_Buttons
 import Game_Files
+import Game_Time
 import Actions
 import Evolution
 
@@ -74,9 +75,9 @@ def display_pet(pet):
     pet_display.draw_text()
 
 def decrease_count():
-    hunger_action.decrease(pet.countdown)
-    happiness_action.decrease(pet.countdown)
-    health_action.decrease(pet.countdown)
+    hunger_action.decrease(pet.hunger_countdown)
+    happiness_action.decrease(pet.happiness_countdown)
+    health_action.decrease(pet.health_countdown)
 
 def save_all():
     # --- Saving the statistic counts ---
@@ -93,6 +94,8 @@ def save_all():
     Game_Files.save_count(penalties, "penalties.txt")
     # --- Saving Evolution_2 stage ---
     Game_Files.save_count(Game_Files.evolution, "evolution.txt")
+    # --- Saving the ending time ---
+    Game_Time.save_end_time()
     
 def pet_check():
     # Whenever the pet changes stages the files will save all the files (and the penalty)

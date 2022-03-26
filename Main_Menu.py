@@ -4,7 +4,6 @@ import New_Buttons
 import pygame
 import sys
 import Variables
-
 import Settings_Screen
 import Help_Screen
 #import NewGame_Screen
@@ -38,6 +37,8 @@ while True:
             #     NewGame_Screen.display_screen()
             # if not Game_Time.new_game:
             #     Main_Game.display_screen()
+            # The continue_game file checks if the game has a save file or not
+            #import Continue_game
             import Main_Game
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):

@@ -44,7 +44,7 @@ class Action:
         # self.act_time = True
 
     def decrease(self, countdown_length):
-        # countdown_length is the period in which the statistic should decrease by
+        # countdown_length is the period of time (in seconds) in which the statistic should decrease by
 
         current_time = time.time()
         penalty_time = time.time()
@@ -52,12 +52,6 @@ class Action:
             if 0 < self.stat <= 5:
                 self.stat -=1
                 self.static_point = current_time
-            # if current_time - self.static_point >= countdown_length and not self.act_time:
-            #     self.stat -= 1
-            #     self.static_point = current_time
-            # elif current_time - self.static_point >= countdown_length and self.act_time:
-            #     self.stat -= 1
-            #     self.static_point = current_time
 
         if penalty_time - self.penalty_static_point >= countdown_length:
             # as the decrease function is working, it will check for any penalties that are given out

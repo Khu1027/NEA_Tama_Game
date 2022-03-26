@@ -1,10 +1,10 @@
 import json
-#import Main_Game
+#import Game_Files
 import time
 from datetime import date, datetime, timedelta
 
 time_now = datetime.now()
-new_game = False
+#new_game = False
 FMT = "%d/%m/%Y %H:%M:%S"
 
 # ----------------- subroutines -------------------------------------
@@ -32,13 +32,31 @@ def current_day(current, start):
     day = calculate_days(minutes)
     return day
 
+# The save_end_time and load_end_time functions saves and loads the time when the user closes the game
+# So that when the game is reopened the necessary calculations can be carried out.
+def save_end_time():
+    time_now = datetime.now()
+    end_time = time_now
+    end_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
+    with open("end_time.txt", "w") as end_file:
+        json.dump(end_time_save, end_file)
+
+def load_end_time():
+    with open('end_time.txt') as end_file:
+        end_time = json.load(end_file)
+    # returning the script variable to a datetime variable
+    end_time = datetime.strptime(end_time, FMT)
+    return end_time
+
 # --------------------------------------------------------------------
+
 try:
     with open('start_time.txt') as start_file:
         start_time = json.load(start_file)
     # returning the script variable to a datetime variable
     start_time = datetime.strptime(start_time, FMT)
-    new_game = False
+    continue_game = True
+
 except:
     # This will be what alerts a new_game screen to load
     # after the new game sequence, then the time file will be made
@@ -47,7 +65,6 @@ except:
     start_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
     with open("start_time.txt", "w") as start_file:
         json.dump(start_time_save, start_file)
-    # start the new game process
-    # to do this you can create a variable that checks if the game is new or not
-    new_game = True
+
+    continue_game = False
 

@@ -6,22 +6,27 @@ import random
 
 FMT = "%d/%m/%Y %H:%M:%S"
 
-
 # start_time = Game_Time.start_time
 # current_time = datetime.now().strptime("%d/%m/%Y %H:%M:%S")
 
 class Evolution:
     def __init__(self):
         self.stage = Game_Files.evolution
+        self.collective_stage = ""
         self.mortal = None
         self.penalties = None
-        self.countdown = None
+        self.hunger_countdown = None
+        self.happiness_countdown = None
+        self.health_countdown = None
         self.display_day = None
         self.dead = None
         self.penalty_reset = False
         self.change_stage = False
 
         # Stage = the stage that the pet is at
+        # Collective_stage = a variable which makes it easier to determine what stage the pet is at
+        #   E.g. If i want to check if the pet is an adult, i can check the collective_stage "adult" and
+        #   I do not need to check through every adult type
         # Mortal = If the pet can die at this stage or not
         # Penalties = If penalties are to be calculated at this stage
         # Countdown = what length should the countdown be
@@ -39,6 +44,8 @@ class Evolution:
         play = Game_Files.play
         wash = Game_Files.wash
         feed = Game_Files.feed
+        adult = 0
+        new_evolution = ""
 
         if play > wash and play > feed:
             adult = 1
@@ -76,7 +83,7 @@ class Evolution:
                 new_evolution = "AdultD"
             elif adult == 2:
                 new_evolution = "AdultE"
-            else:
+            elif adult == 3:
                 new_evolution = "AdultF"
         return new_evolution
 
@@ -91,20 +98,23 @@ class Evolution:
 
         if day == 0:
             if seconds < 30:
+                self.collective_stage = "Egg"
                 self.stage = "Egg"
             else:
+                self.collective_stage = "Baby"
                 self.stage = "Baby"
                 # Changing the evolution stage to the updated one
                 Game_Files.evolution = "Baby"
 
         elif day == 1:
             if self.stage == "Baby":
+                self.collective_stage = "Child"
                 self.change_stage = True
                 # Code for playing the evolution animation
                 self.stage = "Child"
                 Game_Files.evolution = "Child"
                 self.mortal = False
-                # self.change_stage_completed = False
+
 
         elif day == 3:
             # self.stage = "Child"
@@ -112,6 +122,7 @@ class Evolution:
 
         elif day == 4:
             if self.stage == "Child":
+                self.collective_stage = "Teenager"
                 self.change_stage = True
                 self.count_penalties()
                 # Code for playing the evolution animation
@@ -128,7 +139,8 @@ class Evolution:
                 self.penalty_reset = True
 
         elif day >= 6:
-            if self.stage == "TeenagerG" or self.stage == "TeenagerB":
+            if self.collective_stage == "Teenager":
+                self.collective_stage = "Adult"
                 self.change_stage = True
                 self.count_penalties()
                 self.stage = self.find_adult_evolution()
@@ -138,25 +150,86 @@ class Evolution:
 
         # ------------------------------ Attributes of Stages ---------------------------------------------
         # Giving each of the stages of the pet different attributes
+
+        # Egg Stage
         if self.stage == "Egg":
             self.mortal = False
             # self.penalties = False
-            self.countdown = 1
+            self.hunger_countdown = 1
+            self.happiness_countdown = 1
+            self.health_countdown = 1
             # the self.countdown should be 0 as in the user should be unable to feed the pet
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
+
+        # Baby Stage
         elif self.stage == "Baby":
             self.mortal = False
             # self.penalties = False
-            self.countdown = 2
+            self.hunger_countdown = 2
+            self.health_countdown = 2
+            self.happiness_countdown = 2
+
+        # Child Stage
         elif self.stage == "Child":
             # self.penalties = True
-            self.countdown = 3
+            self.hunger_countdown = 3
+            self.happiness_countdown = 3
+            self.health_countdown = 3
+
+        # Teenager Stage
         elif self.stage == "TeenagerG" or self.stage == "TeenagerB":
             self.mortal = True
             # self.penalties = True
-            self.countdown = 4
-        elif self.stage == "Adult":
+            self.hunger_countdown = 4
+            self.happiness_countdown = 4
+            self.health_countdown = 4
+            # Teenager G gets bored more quickly
+            if self.stage == "TeenagerG":
+                self.happiness_countdown = 3
+            # Teenager B gets dirty and hunger more quickly
+            elif self.stage == "TeenagerB":
+                self.hunger_countdown = 3
+                self.health_countdown = 3
+
+        # Adult stage
+        # Teenager G = all the stats decrease a little quicker
+        elif self.stage == "AdultA":
             self.mortal = True
-            # self.penalties = True
-            self.countdown = 5
+            # Adult A gets bored more quickly
+            self.hunger_countdown = 5
+            self.happiness_countdown = 3
+            self.health_countdown = 5
+        elif self.stage == "AdultB":
+            self.mortal = True
+            # Adult B gets dirty more quickly
+            self.hunger_countdown = 5
+            self.happiness_countdown = 5
+            self.health_countdown = 3
+        elif self.stage == "AdultC":
+            self.mortal = True
+            # Adult C gets hungry more quickly
+            self.hunger_countdown = 3
+            self.happiness_countdown = 5
+            self.health_countdown = 5
+
+        # Teenager B = all the stats decrease a little slower
+        elif self.stage == "AdultD":
+            self.mortal = True
+            # Adult D gets bored more quickly
+            self.hunger_countdown = 6
+            self.happiness_countdown = 5
+            self.health_countdown = 6
+        elif self.stage == "AdultE":
+            self.mortal = True
+            # Adult E gets dirty more quickly
+            self.hunger_countdown = 6
+            self.happiness_countdown = 6
+            self.health_countdown = 5
+        elif self.stage == "AdultF":
+            self.mortal = True
+            # Adult F gets hungry more quickly
+            self.hunger_countdown = 5
+            self.happiness_countdown = 6
+            self.health_countdown = 6
+
