@@ -159,3 +159,4 @@ if continue_game:
             decrease_and_penalty(after_evo)
         else:
             decrease_and_penalty(stats_count_decrease)
+
