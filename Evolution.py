@@ -2,6 +2,7 @@
 import Game_Time
 import Game_Files
 from datetime import datetime
+import random
 
 FMT = "%d/%m/%Y %H:%M:%S"
 
@@ -29,11 +30,55 @@ class Evolution:
         # Penalty Reset = To signify to the main code if the penalties should be reset or not
         # Change_Stage = A signifier that the pet has changed stage = saves files
 
-
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
         print(self.penalties)
 
+    def find_adult_evolution(self):
+        # This subroutine compares the different action buttons and then calculates which adult is the result
+        play = Game_Files.play
+        wash = Game_Files.wash
+        feed = Game_Files.feed
+
+        if play > wash and play > feed:
+            adult = 1
+        elif play > wash and play == feed:
+            adult = 1
+        elif play > feed and play == wash:
+            adult = 1
+
+        elif wash > play and wash > feed:
+            adult = 2
+        elif wash > play and wash == feed:
+            adult = 2
+        elif wash > feed and wash == play:
+            adult = 2
+
+        elif feed > wash and feed > play:
+            adult = 3
+        elif feed > wash and feed == play:
+            adult = 3
+        elif feed > play and feed == wash:
+            adult = 3
+        elif feed == play == wash:
+            adult = random.randint(1, 3)
+
+        # This part then calculates which adult is chosen for each teenager type
+        if self.stage == "TeenagerG":
+            if adult == 1:
+                new_evolution = "AdultA"
+            elif adult == 2:
+                new_evolution = "AdultB"
+            else:
+                new_evolution = "AdultC"
+        elif self.stage == "TeenagerB":
+            if adult == 1:
+                new_evolution = "AdultD"
+            elif adult == 2:
+                new_evolution = "AdultE"
+            else:
+                new_evolution = "AdultF"
+        return new_evolution
 
     def current_stage(self):
         # evolution over time calculating variables
@@ -59,7 +104,7 @@ class Evolution:
                 self.stage = "Child"
                 Game_Files.evolution = "Child"
                 self.mortal = False
-                #self.change_stage_completed = False
+                # self.change_stage_completed = False
 
         elif day == 3:
             # self.stage = "Child"
@@ -86,14 +131,12 @@ class Evolution:
             if self.stage == "TeenagerG" or self.stage == "TeenagerB":
                 self.change_stage = True
                 self.count_penalties()
-                # Code for playing the evolution animation
-                self.stage = "Adult"
-                Game_Files.evolution = "Adult"
+                self.stage = self.find_adult_evolution()
+                Game_Files.evolution = self.stage
                 # resetting the penalties
                 self.penalty_reset = True
 
-
-# ------------------------------ Attributes of Stages ---------------------------------------------
+        # ------------------------------ Attributes of Stages ---------------------------------------------
         # Giving each of the stages of the pet different attributes
         if self.stage == "Egg":
             self.mortal = False

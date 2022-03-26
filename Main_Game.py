@@ -78,25 +78,6 @@ def decrease_count():
     happiness_action.decrease(pet.countdown)
     health_action.decrease(pet.countdown)
 
-# def save_all():
-#     # --- Saving the statistic counts ---
-#     Game_Files.save_count(hunger_action.stat, "hunger.txt")
-#     Game_Files.save_count(health_action.stat, "health.txt")
-#     Game_Files.save_count(happiness_action.stat, "happiness.txt")
-#     # --- Saving the action button counts ---
-#     Game_Files.save_count(Game_Files.feed, "feed.txt")
-#     Game_Files.save_count(Game_Files.wash, "wash.txt")
-#     Game_Files.save_count(Game_Files.play, "play.txt")
-#     # --- Saving the penalty points ---
-#     # Saving the Game_Files penalties as the action penalties
-#     mirror_penalties()
-#     # Saving penalties to txt files
-#     Game_Files.save_count(Game_Files.hunger_penalty, "hunger_penalty.txt")
-#     Game_Files.save_count(Game_Files.health_penalty, "health_penalty.txt")
-#     Game_Files.save_count(Game_Files.happiness_penalty, "happiness_penalty.txt")
-#     # --- Saving Evolution stage ---
-#     Game_Files.save_count(Game_Files.evolution, "evolution.txt")
-
 def save_all():
     # --- Saving the statistic counts ---
     status = [hunger_action.stat, happiness_action.stat,health_action.stat]
