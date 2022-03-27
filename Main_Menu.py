@@ -38,7 +38,7 @@ while True:
             # if not Game_Time.new_game:
             #     Main_Game.display_screen()
             # The continue_game file checks if the game has a save file or not
-            #import Continue_game
+            import game_continue
             import Main_Game
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):
