@@ -63,8 +63,9 @@ except:
 # --------- Evolution Stage ---------------
 try:
     with open("evolution.txt") as evolution_file:
-        evolution = json.load(evolution_file)
+        evolution, collective_stage = json.load(evolution_file)
 except:
     evolution = "Egg"
+    collective_stage = "Egg"
     with open("evolution.txt", "w") as evolution_file:
-        json.dump(evolution, evolution_file)
+        json.dump((evolution, collective_stage), evolution_file)

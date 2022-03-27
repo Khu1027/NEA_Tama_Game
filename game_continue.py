@@ -22,43 +22,26 @@ def evolution_countdowns(previous_time, after_time):
 
 
 def decrease_and_penalty(status_countdown):
-    hunger = status_countdown[0]
-    happiness = status_countdown[1]
-    health = status_countdown[2]
-    hunger_stat = Main_Game.hunger_action.stat
-    happiness_stat = Main_Game.happiness_action.stat
-    health_stat = Main_Game.health_action.stat
-    hunger_penalty = Main_Game.hunger_action.penalty
-    happiness_penalty = Main_Game.happiness_action.penalty
-    health_penalty = Main_Game.health_action.penalty
-
-    while hunger_stat != 0 or hunger != 0:
-        hunger_stat -= 1
-        hunger -= 1
-    while happiness_stat != 0 or happiness != 0:
-        happiness_stat -= 1
-        happiness -= 1
-    while health_stat != 0 or health != 0:
-        health_stat -= 1
-        health -= 1
-
-    Main_Game.hunger_action.stat = hunger_stat
-    Main_Game.happiness_action.stat = happiness_stat
-    Main_Game.health_action.stat = health_stat
-
-    while hunger != 0:
-        hunger_penalty += 1
-        hunger -= 1
-    while happiness != 0:
-        happiness_penalty += 1
-        happiness -= 1
-    while health != 0:
-        health_penalty += 1
-        health -= 1
-
-    Main_Game.hunger_action.penalty = hunger_penalty
-    Main_Game.happiness_action.penalty = hunger_penalty
-    Main_Game.health_action.penalty = hunger_penalty
+    hunger = int(status_countdown[0])
+    happiness = int(status_countdown[1])
+    health = int(status_countdown[2])
+    
+    # taking away the hunger countdowns and giving penalties
+    Main_Game.hunger_action.stat -= hunger
+    if Main_Game.hunger_action.stat < 0:
+        Main_Game.hunger_action.penalty = Main_Game.hunger_action.penalty - (Main_Game.hunger_action.stat + 1)
+        Main_Game.hunger_action.stat = 0
+    # taking away the happiness countdowns and giving penalties
+    Main_Game.happiness_action.stat -= happiness
+    if Main_Game.happiness_action.stat < 0:
+        Main_Game.happiness_action.penalty = Main_Game.happiness_action.penalty - (Main_Game.happiness_action.stat + 1)
+        Main_Game.happiness_action.stat = 0
+    # taking away the health countdowns and giving penalties
+    Main_Game.health_action.stat -= health
+    if Main_Game.health_action.stat < 0:
+        Main_Game.health_action.penalty = Main_Game.health_action.penalty - (Main_Game.health_action.stat + 1)
+        Main_Game.health_action.stat = 0
+        
     Main_Game.save_all()
 
 
@@ -84,32 +67,48 @@ if continue_game:
     health_count = game_off_time // Main_Game.pet.health_countdown
 
     stats_count_decrease = [hunger_count, happiness_count, health_count]
+    print("The variable counts are: ",stats_count_decrease)
 
     if current_day >= 6:
-        if Main_Game.pet.collective_stage != "Adult":
-            previous_time = (current_day * day_period) - game_on_time
+        print("Entered day loop")
+        #print(Main_Game.pet.collective_stage)
+        if Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Teenager":
+            print("Entered the adult loop")
+            previous_time = (6 * day_period) - game_on_time
             after_time = game_off_time - previous_time
             before_evolution, after_evolution = evolution_countdowns(previous_time, after_time)
+            print("The before evo and after evo are: ", before_evolution, after_evolution)
 
-            Main_Game.pet.penalty_reset = True
-            Main_Game.pet_check()
+            decrease_and_penalty(before_evolution)
             # Giving new evolution
             Main_Game.pet.collective_stage = "Adult"
             Main_Game.pet.count_penalties()
             Main_Game.pet.stage = Main_Game.pet.find_adult_evolution()
             Game_Files.evolution = Main_Game.pet.stage
             Main_Game.pet.penalty_reset = True
+            Main_Game.pet_check()
 
             decrease_and_penalty(after_evolution)
+        # elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Child":
+            # # Carry out function
+        # elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Baby":
+            # # Carry out function
+        # elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Egg":
+            # # Carry out function
         else:
             decrease_and_penalty(stats_count_decrease)
+    # Teenager evolution
     elif 6 > current_day >= 4:
-        if Main_Game.pet.collective_stage != "Teenager":
-            previous_time = (current_day * day_period) - game_on_time
+        if Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Child":
+            previous_time = (4 * day_period) - game_on_time
             after_time = game_off_time - previous_time
+            print(previous_time, after_time)
             before_evolution, after_evolution = evolution_countdowns(previous_time, after_time)
+            print("The before evo and after evo are: ", before_evolution, after_evolution)
 
             decrease_and_penalty(before_evolution)
+            print(Main_Game.pet.penalties)
+            Main_Game.pet.collective_stage = "Teenager"
             # Giving new evolution
             if 0 <= Main_Game.pet.penalties < 75:
                 Main_Game.pet.stage = "TeenagerG"
@@ -121,22 +120,32 @@ if continue_game:
             Main_Game.pet_check()
 
             decrease_and_penalty(after_evolution)
+        # elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Baby":
+            # # Carry out function
+        # elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Egg":
+            # # Carry out function
         else:
             decrease_and_penalty(stats_count_decrease)
+    # Child evolution
     elif 4 > current_day >= 1:
-        if Main_Game.pet.collective_stage != "Child":
-            previous_time = (current_day * day_period) - game_on_time
+        if Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Baby":
+            previous_time = (1 * day_period) - game_on_time
             after_time = game_off_time - previous_time
+            print(previous_time, after_time)
             before_evolution, after_evolution = evolution_countdowns(previous_time, after_time)
+            print("The before evo and after evo are: ", before_evolution, after_evolution)
             # Giving new evolution
-            Main_Game.pet.collective_stage = "Baby"
-            Main_Game.pet.stage = "Baby"
-            Game_Files.evolution = "Baby"
+            Main_Game.pet.collective_stage = "Child"
+            Main_Game.pet.stage = "Child"
+            Game_Files.evolution = "Child"
 
             decrease_and_penalty(after_evolution)
+        # elif Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Egg":
+            # # Carry out different function
         else:
             decrease_and_penalty(stats_count_decrease)
-    elif 1 > current_day >= 0:
+    # Baby evolution
+    elif 60 > total_seconds >= 30:
         if Main_Game.pet.collective_stage != "Baby":
             Main_Game.pet.collective_stage = "Baby"
             Main_Game.pet.stage = "Baby"

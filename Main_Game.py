@@ -93,7 +93,7 @@ def save_all():
     penalties = [Game_Files.hunger_penalty, Game_Files.happiness_penalty, Game_Files.health_penalty]
     Game_Files.save_count(penalties, "penalties.txt")
     # --- Saving Evolution_2 stage ---
-    Game_Files.save_count(Game_Files.evolution, "evolution.txt")
+    Game_Files.save_count((Game_Files.evolution, Game_Files.collective_stage), "evolution.txt")
     # --- Saving the ending time ---
     Game_Time.save_end_time()
     

@@ -12,7 +12,7 @@ FMT = "%d/%m/%Y %H:%M:%S"
 class Evolution:
     def __init__(self):
         self.stage = Game_Files.evolution
-        self.collective_stage = ""
+        self.collective_stage = Game_Files.collective_stage
         self.mortal = None
         self.penalties = None
         self.hunger_countdown = None
@@ -105,6 +105,7 @@ class Evolution:
                 self.stage = "Baby"
                 # Changing the evolution stage to the updated one
                 Game_Files.evolution = "Baby"
+                Game_Files.collective_stage = "Baby"
 
         elif day == 1:
             if self.stage == "Baby":
@@ -113,6 +114,7 @@ class Evolution:
                 # Code for playing the evolution animation
                 self.stage = "Child"
                 Game_Files.evolution = "Child"
+                Game_Files.collective_stage = "Child"
                 self.mortal = False
 
 
@@ -136,6 +138,7 @@ class Evolution:
                     self.stage = "TeenagerB"
                     Game_Files.evolution = "TeenagerB"
                 # resetting the penalties
+                Game_Files.collective_stage = "Teenager"
                 self.penalty_reset = True
 
         elif day >= 6:
@@ -145,6 +148,7 @@ class Evolution:
                 self.count_penalties()
                 self.stage = self.find_adult_evolution()
                 Game_Files.evolution = self.stage
+                Game_Files.collective_stage = "Adult"
                 # resetting the penalties
                 self.penalty_reset = True
 

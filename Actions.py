@@ -34,7 +34,7 @@ class Action:
                     self.warning = True
                 if self.warning:
                     self.penalty +=1
-                print(self.penalty)
+                #print(self.penalty)
 
     def increase(self):
         # When the user interacts with a button and increases the statistic
