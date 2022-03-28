@@ -173,6 +173,7 @@ class Evolution:
             self.hunger_countdown = 2
             self.health_countdown = 2
             self.happiness_countdown = 2
+            self.penalties = 0
 
         # Child Stage
         elif self.stage == "Child":
@@ -180,6 +181,7 @@ class Evolution:
             self.hunger_countdown = 3
             self.happiness_countdown = 3
             self.health_countdown = 3
+            self.penalties = 0
 
         # Teenager Stage
         elif self.stage == "TeenagerG" or self.stage == "TeenagerB":
