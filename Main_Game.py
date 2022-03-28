@@ -2,12 +2,16 @@ import pygame
 import sys
 from datetime import datetime
 import time
+# python files
 import Variables
 import New_Buttons
 import Game_Files
 import Game_Time
 import Actions
 import Evolution
+# game screens
+import Settings_Screen
+
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -42,6 +46,7 @@ wash_button = buttons.Button("Wash", 200, 75, (25, 450))
 play_button = buttons.Button("Play", 200, 75, (1055, 275))
 heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
+settings_button = buttons.Button("S", 75, 75, (1100, 25))
 action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
 
 # ------------ Subroutines ---------------------------------------
@@ -64,6 +69,7 @@ def display_buttons():
     wash_button.draw()
     play_button.draw()
     heal_button.draw()
+    settings_button.draw()
 
 def display_day():
     day = int(pet.display_day)
@@ -127,6 +133,10 @@ def display_screen():
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
 
+        if settings_button.surf_rect.collidepoint((mx, my)):
+            if click:
+                Settings_Screen.display_screen()
+
         if pet.stage != "Egg":
             if feed_button.surf_rect.collidepoint((mx, my)):
                 if click:
@@ -175,7 +185,6 @@ def display_screen():
         display_day()
         display_stats()
         display_buttons()
-
 
         click = False
         # -------------- event loop --------------------

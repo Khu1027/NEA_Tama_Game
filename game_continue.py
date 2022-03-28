@@ -203,7 +203,7 @@ if continue_game:
             # hence next_evo_time is required so that the correct 'after_evolution' is calculated
             egg_to_baby()
             off = True
-            baby_to_child(game_off_time, off)
+            baby_to_child(game_off_time)
         else:
             decrease_and_penalty(stats_count_decrease)
     # Baby evolution
