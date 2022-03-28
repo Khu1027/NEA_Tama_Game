@@ -84,8 +84,8 @@ def save_all():
     status = [hunger_action.stat, happiness_action.stat,health_action.stat]
     Game_Files.save_count(status, "pet_status.txt")
     # --- Saving the action button counts ---
-    user_Actions_2 = [Game_Files.feed, Game_Files.wash, Game_Files.play]
-    Game_Files.save_count(user_Actions_2, "user_actions.txt")
+    user_actions_2 = [Game_Files.feed, Game_Files.wash, Game_Files.play]
+    Game_Files.save_count(user_actions_2, "user_actions.txt")
     # --- Saving the penalty points ---
     # Saving the Game_Files penalties as the action penalties
     mirror_penalties()
