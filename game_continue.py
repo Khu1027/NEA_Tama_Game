@@ -3,8 +3,8 @@ import Main_Game
 import Game_Files
 from datetime import datetime
 
-continue_game = Game_Time.continue_game
-global day_period, hunger_count, happiness_count, health_count
+
+# global day_period, hunger_count, happiness_count, health_count
 
 
 # ---- subroutines for calculating the decrease in status levels before and after evolution -----
@@ -117,98 +117,102 @@ def teen_to_adult(next_evo):
 
 
 # ------------------------------- Main game_continue function ----------------------------------------------
-if continue_game:
-    day_period = 60  # currently, one day is 60 seconds
+def continue_from_save():
+    continue_game = Game_Time.continue_game
+    if continue_game:
+        global day_period, hunger_count, happiness_count, health_count, game_on_time, game_off_time, end_day
+        print("This process has been initiated BOOM")
+        day_period = 60  # currently, one day is 60 seconds
 
-    current_time = datetime.now()
-    end_time = Game_Time.load_end_time()
-    # Game_off_time = the seconds passed between closing the game and now reopening it
-    game_off_time = Game_Time.calculate_seconds(current_time, end_time)
-    # Game_on_time = the seconds passed between the start of a new file and the last closing of the game
-    game_on_time = Game_Time.calculate_seconds(end_time, Game_Time.start_time)
-    # End day = the day at which the game was closed
-    end_day = Game_Time.current_day(end_time, Game_Time.start_time)
-    # The current day in the game when it was reopened
-    current_day = Game_Time.current_day(current_time, Game_Time.start_time)
-    # Total seconds = the number of seconds since start of the game and the reopening
-    total_seconds = Game_Time.calculate_seconds(current_time, Game_Time.start_time)
+        current_time = datetime.now()
+        end_time = Game_Time.load_end_time()
+        # Game_off_time = the seconds passed between closing the game and now reopening it
+        game_off_time = Game_Time.calculate_seconds(current_time, end_time)
+        # Game_on_time = the seconds passed between the start of a new file and the last closing of the game
+        game_on_time = Game_Time.calculate_seconds(end_time, Game_Time.start_time)
+        # End day = the day at which the game was closed
+        end_day = Game_Time.current_day(end_time, Game_Time.start_time)
+        # The current day in the game when it was reopened
+        current_day = Game_Time.current_day(current_time, Game_Time.start_time)
+        # Total seconds = the number of seconds since start of the game and the reopening
+        total_seconds = Game_Time.calculate_seconds(current_time, Game_Time.start_time)
 
-    # calculating how many times a 'countdown' occurred whilst the game was off
-    hunger_count = game_off_time // Main_Game.pet.hunger_countdown
-    happiness_count = game_off_time // Main_Game.pet.happiness_countdown
-    health_count = game_off_time // Main_Game.pet.health_countdown
+        # calculating how many times a 'countdown' occurred whilst the game was off
+        hunger_count = game_off_time // Main_Game.pet.hunger_countdown
+        happiness_count = game_off_time // Main_Game.pet.happiness_countdown
+        health_count = game_off_time // Main_Game.pet.health_countdown
 
-    stats_count_decrease = [hunger_count, happiness_count, health_count]
-    # print("The variable counts are: ",stats_count_decrease)
+        stats_count_decrease = [hunger_count, happiness_count, health_count]
+        # print("The variable counts are: ",stats_count_decrease)
 
-    if current_day >= 6:
-        # print("Entered day loop")
-        # print(Main_Game.pet.collective_stage)
-        if Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Teenager":
-            teen_to_adult(game_off_time)
-        elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Child":
-            # at this stage the pet would be dead (if mortality was on)
-            next_evo = (6 * day_period) - game_on_time
-            off = False
-            child_to_teen(next_evo, off)
-            teen_to_adult(game_off_time)
-        elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Baby":
-            # at this stage the pet would be dead (if mortality was on)
-            next_evo = (4 * day_period) - game_on_time
-            baby_to_child(next_evo)
-            next_evo = (6 * day_period) - game_on_time
-            off = True
-            child_to_teen(next_evo, off)
-            teen_to_adult(game_off_time)
-        elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Egg":
-            # at this stage the pet would be dead (if mortality was on)
-            egg_to_baby()
-            next_evo = (4 * day_period) - game_on_time
-            baby_to_child(next_evo)
-            next_evo = (6 * day_period) - game_on_time
-            off = True
-            child_to_teen(next_evo, off)
-            teen_to_adult(game_off_time)
-        else:
-            decrease_and_penalty(stats_count_decrease)
-    # Teenager evolution
-    elif 6 > current_day >= 4:
-        if Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Child":
-            off = False
-            child_to_teen(game_off_time, off)
-        elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Baby":
-            # at this stage the pet would be dead (if mortality was on)
-            next_evo = (4 * day_period) - game_on_time
-            baby_to_child(next_evo)
-            off = True
-            child_to_teen(game_off_time, off)
-        elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Egg":
-            # at this stage the pet would be dead (if mortality was on)
-            # teenager B is picked because as an egg/child there are no penalties given so no
-            # real way of measuring the teenager type.
-            egg_to_baby()
-            next_evo = (4 * day_period) - game_on_time
-            baby_to_child(next_evo)
-            off = True
-            child_to_teen(game_off_time, off)
-        else:
-            decrease_and_penalty(stats_count_decrease)
-    # Child evolution
-    elif 4 > current_day >= 1:
-        if Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Baby":
-            baby_to_child(game_off_time)
-        elif Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Egg":
-            # Egg already had all the status at 0 and no penalties so all that needs to happen is to change the stage
-            # This is done in steps so that the correct penalties are given
-            # hence next_evo_time is required so that the correct 'after_evolution' is calculated
-            egg_to_baby()
-            off = True
-            baby_to_child(game_off_time)
-        else:
-            decrease_and_penalty(stats_count_decrease)
-    # Baby evolution
-    elif 60 > total_seconds >= 30:
-        if Main_Game.pet.collective_stage != "Baby":
-            egg_to_baby()
-        else:
-            decrease_and_penalty(stats_count_decrease)
+        if current_day >= 6:
+            # print("Entered day loop")
+            # print(Main_Game.pet.collective_stage)
+            if Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Teenager":
+                teen_to_adult(game_off_time)
+            elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Child":
+                # at this stage the pet would be dead (if mortality was on)
+                next_evo = (6 * day_period) - game_on_time
+                off = False
+                child_to_teen(next_evo, off)
+                teen_to_adult(game_off_time)
+            elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Baby":
+                # at this stage the pet would be dead (if mortality was on)
+                next_evo = (4 * day_period) - game_on_time
+                baby_to_child(next_evo)
+                next_evo = (6 * day_period) - game_on_time
+                off = True
+                child_to_teen(next_evo, off)
+                teen_to_adult(game_off_time)
+            elif Main_Game.pet.collective_stage != "Adult" and Main_Game.pet.collective_stage == "Egg":
+                # at this stage the pet would be dead (if mortality was on)
+                egg_to_baby()
+                next_evo = (4 * day_period) - game_on_time
+                baby_to_child(next_evo)
+                next_evo = (6 * day_period) - game_on_time
+                off = True
+                child_to_teen(next_evo, off)
+                teen_to_adult(game_off_time)
+            else:
+                decrease_and_penalty(stats_count_decrease)
+        # Teenager evolution
+        elif 6 > current_day >= 4:
+            if Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Child":
+                off = False
+                child_to_teen(game_off_time, off)
+            elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Baby":
+                # at this stage the pet would be dead (if mortality was on)
+                next_evo = (4 * day_period) - game_on_time
+                baby_to_child(next_evo)
+                off = True
+                child_to_teen(game_off_time, off)
+            elif Main_Game.pet.collective_stage != "Teenager" and Main_Game.pet.collective_stage == "Egg":
+                # at this stage the pet would be dead (if mortality was on)
+                # teenager B is picked because as an egg/child there are no penalties given so no
+                # real way of measuring the teenager type.
+                egg_to_baby()
+                next_evo = (4 * day_period) - game_on_time
+                baby_to_child(next_evo)
+                off = True
+                child_to_teen(game_off_time, off)
+            else:
+                decrease_and_penalty(stats_count_decrease)
+        # Child evolution
+        elif 4 > current_day >= 1:
+            if Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Baby":
+                baby_to_child(game_off_time)
+            elif Main_Game.pet.collective_stage != "Child" and Main_Game.pet.collective_stage == "Egg":
+                # Egg already had all the status at 0 and no penalties so all that needs to happen is to change the stage
+                # This is done in steps so that the correct penalties are given
+                # hence next_evo_time is required so that the correct 'after_evolution' is calculated
+                egg_to_baby()
+                off = True
+                baby_to_child(game_off_time)
+            else:
+                decrease_and_penalty(stats_count_decrease)
+        # Baby evolution
+        elif 60 > total_seconds >= 30:
+            if Main_Game.pet.collective_stage != "Baby":
+                egg_to_baby()
+            else:
+                decrease_and_penalty(stats_count_decrease)

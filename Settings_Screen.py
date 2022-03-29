@@ -4,6 +4,8 @@ import sys
 import New_Buttons
 import Variables
 import Game_Time
+import game_continue
+
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -29,7 +31,8 @@ def display_screen():
 
         if back_button.surf_rect.collidepoint((mx, my)):
             if click:
-                Game_Time.save_end_time()
+                Game_Time.continue_game = True
+                game_continue.continue_from_save()
                 running = False
 
         back_button.draw()

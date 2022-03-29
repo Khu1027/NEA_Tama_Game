@@ -46,7 +46,7 @@ wash_button = buttons.Button("Wash", 200, 75, (25, 450))
 play_button = buttons.Button("Play", 200, 75, (1055, 275))
 heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
-settings_button = buttons.Button("S", 75, 75, (1100, 25))
+settings_button = buttons.Button("S", 75, 75, (1180, 50))
 action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
 
 # ------------ Subroutines ---------------------------------------
@@ -135,6 +135,7 @@ def display_screen():
 
         if settings_button.surf_rect.collidepoint((mx, my)):
             if click:
+                save_all()
                 Settings_Screen.display_screen()
 
         if pet.stage != "Egg":

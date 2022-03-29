@@ -17,6 +17,7 @@ pygame.display.set_caption("Tama")
 screen = Variables.screen
 clock = Variables.clock
 buttons = New_Buttons
+import game_continue
 
 Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
 Start = buttons.Button("Start", 200, 60, (550, 350))
@@ -38,7 +39,7 @@ while True:
             # if not Game_Time.new_game:
             #     Main_Game.display_screen()
             # The continue_game file checks if the game has a save file or not
-            import game_continue
+            game_continue.continue_from_save()
             import Main_Game
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):
