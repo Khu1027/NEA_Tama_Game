@@ -1,7 +1,9 @@
 import time
 import New_Buttons
 #import Game_Files
-import Main_Game
+import Main_Game_Variables
+
+apples = 2
 
 # Notes:
 # The act_time variable caused issues with the method running smoothly so it was removed.
@@ -55,6 +57,6 @@ class Action:
 
         if penalty_time - self.penalty_static_point >= countdown_length:
             # as the decrease function is working, it will check for any penalties that are given out
-            if (Main_Game.pet.stage != "Egg") and (Main_Game.pet.stage != "Baby"):
+            if (Main_Game_Variables.pet.stage != "Egg") and (Main_Game_Variables.pet.stage != "Baby"):
                 self.penalty_check()
                 self.penalty_static_point = penalty_time
