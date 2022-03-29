@@ -1,6 +1,7 @@
 import pygame
 import sys
 from datetime import datetime
+import random
 import time
 # python files
 import Variables
@@ -48,6 +49,9 @@ heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
 settings_button = buttons.Button("S", 75, 75, (1180, 50))
 action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
+
+# -------------- Status Meter ---------------------------------
+
 
 # ------------ Subroutines ---------------------------------------
 def digital_clock():
@@ -102,6 +106,8 @@ def save_all():
     Game_Files.save_count((Game_Files.evolution, Game_Files.collective_stage), "evolution.txt")
     # --- Saving the ending time ---
     Game_Time.save_end_time()
+    # --- Saving sick variables ---
+    Game_Files.save_count((pet.sick, pet.last_sick_day, pet.sick_day), "sick.txt")
     
 def pet_check():
     # Whenever the pet changes stages the files will save all the files (and the penalty)
@@ -114,6 +120,29 @@ def pet_check():
         happiness_action.penalty = 0
         health_action.penalty = 0
         pet.penalty_reset = False
+
+    sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))
+    if not pet.sick and sick_time_lapse == pet.sick_day:
+        pet.sick = True
+        # the countdowns will decrease a little faster (health faster than the rest)
+        pet.hunger_countdown = 3/4 * pet.hunger_countdown
+        pet.happiness_countdown = 3/4 * pet.happiness_countdown
+        pet.health_countdown = 2/3 * pet.health_countdown
+
+    if pet.sick:
+        # here the status bar will show the pet is sick
+        print("Pet is sick!!")
+        if pet.display_day - pet.sick_day >= 3:
+            pet.dead = True
+        if pet.heal == 0:
+            pet.sick = False
+            pet.last_sick_day = (pet.display_day - 1)
+            pet.sick_day = random.randint(1, 3)
+            print("Pet has been healed!")
+            # returning countdowns to normal
+            pet.hunger_countdown = pet.hunger_countdown / (3/4)
+            pet.happiness_countdown = pet.happiness_countdown / (3/4)
+            pet.health_countdown = pet.health_countdown / (2/3)
 
 def mirror_penalties():
     # This saves the action penalties as the Game_Files penalties so that it can be used in
@@ -159,6 +188,7 @@ def display_screen():
 
             if heal_button.surf_rect.collidepoint((mx, my)):
                 if click:
+                    pet.heal -= 1
                     # check to see if the pet is infected
                     # if the pet is sick (random out of 3 to heal the pet)
                     # otherwise the pet is unable to be healed (error message is shown)

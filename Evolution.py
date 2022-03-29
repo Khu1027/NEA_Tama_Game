@@ -15,13 +15,20 @@ class Evolution:
         self.collective_stage = Game_Files.collective_stage
         self.mortal = None
         self.penalties = None
+        # countdowns
         self.hunger_countdown = None
         self.happiness_countdown = None
         self.health_countdown = None
+        # other variables
         self.display_day = None
         self.dead = None
         self.penalty_reset = False
         self.change_stage = False
+        # sick variables
+        self.sick = Game_Files.sick
+        self.last_sick_day = Game_Files.last_sick_day
+        self.sick_day = Game_Files.sick_day
+        self.heal = random.randint(1, 3)
 
         # Stage = the stage that the pet is at
         # Collective_stage = a variable which makes it easier to determine what stage the pet is at
@@ -34,6 +41,11 @@ class Evolution:
         # Dead = If the pet is dead or not
         # Penalty Reset = To signify to the main code if the penalties should be reset or not
         # Change_Stage = A signifier that the pet has changed stage = saves files
+        # sick = tells whether the pet is sick or not
+        # last_sick_day = tells us what the last day the pet was sick
+        # sick_day = calculates what day after the last_sick_day the pet will be sick or is sick
+        # heal = chooses a random number of times the user needs to click heal
+
 
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
@@ -238,4 +250,3 @@ class Evolution:
             self.hunger_countdown = 5
             self.happiness_countdown = 6
             self.health_countdown = 6
-

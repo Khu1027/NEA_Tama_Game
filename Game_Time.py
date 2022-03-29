@@ -1,14 +1,11 @@
 import json
-#import Game_Files
-import time
+# import time
 from datetime import date, datetime, timedelta
 
 time_now = datetime.now()
-#new_game = False
 FMT = "%d/%m/%Y %H:%M:%S"
 
 # ----------------- subroutines -------------------------------------
-
 def calculate_minutes(current, start):
     time_diff = current - start
     total_time = time_diff.total_seconds()

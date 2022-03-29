@@ -1,6 +1,9 @@
 import json
+import random
+
 import New_Buttons
 buttons = New_Buttons
+
 
 def save_count(count, file_name):
     with open(file_name, "w") as count_file:
@@ -69,3 +72,14 @@ except:
     collective_stage = "Egg"
     with open("evolution.txt", "w") as evolution_file:
         json.dump((evolution, collective_stage), evolution_file)
+        
+# --------- sick Stage ---------------
+try:
+    with open("sick.txt") as sick_file:
+        sick, last_sick_day, sick_day = json.load(sick_file)
+except:
+    sick = False
+    last_sick_day = 0
+    sick_day = random.randint(1,3)
+    with open("sick.txt", "w") as sick_file:
+        json.dump((sick, last_sick_day, sick_day), sick_file)

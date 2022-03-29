@@ -1,11 +1,11 @@
 import pygame
 import sys
+#import Main_Game
 # python files
 import New_Buttons
 import Variables
 import Game_Time
 import game_continue
-
 
 # -------------- Initialising Variables -------------
 pygame.init()
