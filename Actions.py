@@ -3,7 +3,6 @@ import New_Buttons
 #import Game_Files
 import Main_Game_Variables
 
-apples = 2
 
 # Notes:
 # The act_time variable caused issues with the method running smoothly so it was removed.
