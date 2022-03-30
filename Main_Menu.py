@@ -4,8 +4,12 @@ import New_Buttons
 import pygame
 import sys
 import Variables
+import game_continue
+# Screens
 import Settings_Screen
 import Help_Screen
+import Death_Screen
+
 #import NewGame_Screen
 
 
@@ -17,7 +21,7 @@ pygame.display.set_caption("Tama")
 screen = Variables.screen
 clock = Variables.clock
 buttons = New_Buttons
-import game_continue
+
 
 Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
 Start = buttons.Button("Start", 200, 60, (550, 350))
@@ -54,6 +58,9 @@ while True:
     Settings.draw()
     Help.draw()
 
+    if Death_Screen.choice == 2:
+        pygame.quit()
+        sys.exit()
     click = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

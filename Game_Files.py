@@ -2,6 +2,7 @@ import json
 import random
 
 import New_Buttons
+
 buttons = New_Buttons
 
 
@@ -9,10 +10,12 @@ def save_count(count, file_name):
     with open(file_name, "w") as count_file:
         json.dump(count, count_file)
 
+
 def load_count(count):
     with open(count) as count_file:
         new_count = json.load(count_file)
     return new_count
+
 
 # All of these try, except statements checks if the file exists.
 # If the file does exist it reassigns the variable the value that is in the file
@@ -72,7 +75,7 @@ except:
     collective_stage = "Egg"
     with open("evolution.txt", "w") as evolution_file:
         json.dump((evolution, collective_stage), evolution_file)
-        
+
 # --------- sick Stage ---------------
 try:
     with open("sick.txt") as sick_file:
@@ -80,6 +83,58 @@ try:
 except:
     sick = False
     last_sick_day = 0
-    sick_day = random.randint(1,3)
+    sick_day = random.randint(1, 4)
     with open("sick.txt", "w") as sick_file:
         json.dump((sick, last_sick_day, sick_day), sick_file)
+
+# --------- immortal Stage ---------------
+try:
+    with open("immortal.txt") as immortal_file:
+        immortal = json.load(immortal_file)
+except:
+    immortal = False
+    with open("immortal.txt", "w") as immortal_file:
+        json.dump(immortal, immortal_file)
+
+
+def redefine_files():
+    # ------------- Pet_Status -----------------
+    hunger = 0
+    happiness = 0
+    health = 0
+    status = [hunger, happiness, health]
+    with open("pet_status.txt", "w") as status_file:
+        json.dump(status, status_file)
+    # ------------- User_Actions -----------------
+    play = 0
+    wash = 0
+    feed = 0
+    user_actions = [play, wash, feed]
+    with open("user_actions.txt", "w") as user_actions_file:
+        json.dump(user_actions, user_actions_file)
+    # ------------- Penalties -----------------
+    hunger_penalty = 0
+    happiness_penalty = 0
+    health_penalty = 0
+    penalties = [hunger_penalty, happiness_penalty, health_penalty]
+    with open("penalties.txt", "w") as penalty_file:
+        json.dump(penalties, penalty_file)
+    # --------- Evolution Stage ---------------
+    evolution = "Egg"
+    collective_stage = "Egg"
+    with open("evolution.txt", "w") as evolution_file:
+        json.dump((evolution, collective_stage), evolution_file)
+    # --------- sick Stage ---------------
+    sick = False
+    last_sick_day = 0
+    sick_day = random.randint(1, 4)
+    with open("sick.txt", "w") as sick_file:
+        json.dump((sick, last_sick_day, sick_day), sick_file)
+    # --------- immortal Stage ---------------
+    immortal = False
+    with open("immortal.txt", "w") as immortal_file:
+        json.dump(immortal, immortal_file)
+
+    return hunger, happiness, health, status, play, wash, feed, user_actions,hunger_penalty, happiness_penalty, \
+           health_penalty, penalties, evolution, collective_stage,\
+           sick, last_sick_day, sick_day, immortal

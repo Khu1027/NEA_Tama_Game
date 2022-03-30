@@ -3,7 +3,6 @@ import New_Buttons
 #import Game_Files
 import Main_Game_Variables
 
-
 # Notes:
 # The act_time variable caused issues with the method running smoothly so it was removed.
 # It may be added / changed later on if needed
