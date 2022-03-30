@@ -25,9 +25,17 @@ def load_count(count):
 try:
     with open("pet_status.txt") as status_file:
         status = json.load(status_file)
-        hunger = status[0]
-        happiness = status[1]
-        health = status[2]
+        if status == "delete":
+            hunger = 0
+            happiness = 0
+            health = 0
+            status = [hunger, happiness, health]
+            with open("pet_status.txt", "w") as status_file:
+                json.dump(status, status_file)
+        else:
+            hunger = status[0]
+            happiness = status[1]
+            health = status[2]
 except:
     hunger = 0
     happiness = 0

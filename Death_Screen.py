@@ -48,18 +48,6 @@ elif option == 3:
 New_Game_button = buttons.Button("New Game", 200, 75, (100, 500))
 End_Game_button = buttons.Button("Quit Game", 200, 75, (700, 500))
 
-# def delete_all_files():
-#     # os.remove(file)
-#     # os.remove("end_time.txt")
-#     # os.remove("evolution.txt")
-#     # os.remove("immortal.txt")
-#     # os.remove("penalties.txt")
-#     # os.remove("\Users\User\Documents\Computer Science\NEA (Real)\NEA - comp version\python files\Game Mechanics\16.01.22 Code\Version 2\penalties.txt")
-#     # os.remove("\Users\User\Documents\Computer Science\NEA (Real)\NEA - comp version\python files\Game Mechanics\16.01.22 Code\Version 2\pet_status.txt")
-#     # os.remove("\Users\User\Documents\Computer Science\NEA (Real)\NEA - comp version\python files\Game Mechanics\16.01.22 Code\Version 2\sick.txt")
-#     # os.remove("\Users\User\Documents\Computer Science\NEA (Real)\NEA - comp version\python files\Game Mechanics\16.01.22 Code\Version 2\start_time.txt")
-#     # os.remove("\Users\User\Documents\Computer Science\NEA (Real)\NEA - comp version\python files\Game Mechanics\16.01.22 Code\Version 2\user_actions.txt")
-
 def delete_all_files():
     # # need to close all files first to delete them
     # Main_Game_Variables.save_all()
@@ -118,7 +106,6 @@ def display_screen():
         screen.fill(Variables.matcha)
 
         # The main game button doesn't work. write in evaluation
-
         # if New_Game_button.surf_rect.collidepoint((mx, my)):
         #     if click:
         #         choice = 1

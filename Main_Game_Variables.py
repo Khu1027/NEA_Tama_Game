@@ -165,35 +165,4 @@ def mirror_penalties():
     Game_Files.health_penalty = health_action.penalty
     Game_Files.happiness_penalty = happiness_action.penalty
 
-def reset_files():
-    hunger = Game_Files.hunger
-    happiness = Game_Files.happiness
-    health = Game_Files.health
-
-    # ------------ Setting up Actions ------------------------
-    hunger_static = time.time()
-    happiness_static = time.time()
-    health_static = time.time()
-
-    hunger_action = Actions.Action(hunger, hunger_static, "hunger", Game_Files.hunger_penalty)
-    happiness_action = Actions.Action(happiness, happiness_static, "happiness", Game_Files.happiness_penalty)
-    health_action = Actions.Action(health, health_static, "health", Game_Files.health_penalty)
-
-    # ------------- MAIN Pet evolution class object ------------------------
-    pet = Evolution.Evolution()
-
-    return hunger, happiness, health, hunger_static, happiness_static, health_static
-
-
-# def redefine_files():
-#     # this redefines the txt files as 'empty'
-#     # redefines start_time
-#     Game_Time.start_time, Game_Time.continue_game = Game_Time.redefine_starttime()
-#     # redefines game_files
-#     Game_Files.hunger, Game_Files.happiness, Game_Files.health, Game_Files.status, Game_Files.play, Game_Files.wash, Game_Files.feed, Game_Files.user_actions, Game_Files.hunger_penalty, \
-#     Game_Files.happiness_penalty, Game_Files.health_penalty, Game_Files.penalties, Game_Files.evolution, Game_Files.collective_stage, \
-#     Game_Files.sick, Game_Files.last_sick_day, Game_Files.sick_day, Game_Files.immortal = Game_Files.redefine_files()
-#
-#     save_all()
-#     # redefines Main_Game_Variables
 
