@@ -156,6 +156,7 @@ class Evolution:
                 elif 150 <= self.penalties:
                     if not self.immortal:
                         self.dead = True
+                        self.dead_reason = "neglect"
                     else:
                         print(self.penalties)
                         self.stage = "TeenagerB"
@@ -177,6 +178,7 @@ class Evolution:
                         Game_Files.collective_stage = "Adult"
                     else:
                         self.dead = True
+                        self.dead_reason = "neglect"
                 else:
                     self.collective_stage = "Adult"
                     self.change_stage = True
@@ -186,6 +188,11 @@ class Evolution:
                     Game_Files.collective_stage = "Adult"
                 # resetting the penalties
                 self.penalty_reset = True
+            if self.collective_stage == "Adult":
+                if day / 3 == 0 and day != 6:
+                    if self.penalties >= 100:
+                        self.dead = True
+                        self.dead_reason = "old age"
 
         # ------------------------------ Attributes of Stages ---------------------------------------------
         # Giving each of the stages of the pet different attributes

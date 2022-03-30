@@ -1,6 +1,5 @@
 import pygame
 import sys
-import random
 import os
 import Variables
 import New_Buttons
@@ -30,19 +29,15 @@ except:
     continue_game = False
 
 
-option = random.randint(1, 3)
-text_sick = """Your pet has passed away from illness.
-Please choose from the options below:"""
-text_ignored = """Your pet has passed away from neglect.
-Please choose from the options below:"""
-text_age = """Your pet has passed away from old age.
-Please choose from the options below: """
+text_sick = """Your pet has passed away from illness."""
+text_ignored = """Your pet has passed away from neglect."""
+text_age = """Your pet has passed away from old age."""
 
-if option == 1:
+if Main_Game_Variables.pet.dead_reason == "sick":
     Message = buttons.Button(text_sick, 200, 75, (550, 250))
-elif option == 2:
+elif Main_Game_Variables.pet.dead_reason == "neglect":
     Message = buttons.Button(text_ignored, 200, 75, (550, 250))
-elif option == 3:
+elif Main_Game_Variables.pet.dead_reason == "old age":
     Message = buttons.Button(text_age, 200, 75, (550, 250))
 
 New_Game_button = buttons.Button("New Game", 200, 75, (100, 500))

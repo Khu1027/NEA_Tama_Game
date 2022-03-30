@@ -142,6 +142,7 @@ def pet_check():
         print("Pet is sick!!")
         if pet.display_day - pet.sick_day >= 3:
             pet.dead = True
+            pet.dead_reason = "sick"
         if pet.heal == 0:
             pet.sick = False
             pet.last_sick_day = (pet.display_day - 1)

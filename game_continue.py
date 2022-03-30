@@ -95,6 +95,7 @@ def child_to_teen(next_evo, off):
         Main_Game_Variables.pet.count_penalties()
         if Main_Game_Variables.pet.penalties > 80:
             Main_Game_Variables.pet.dead = True
+            Main_Game_Variables.pet.dead_reason = "neglect"
 
     Main_Game_Variables.pet.penalty_reset = True
     Main_Game_Variables.pet_check()
@@ -178,6 +179,7 @@ def continue_from_save():
                 teen_to_adult(game_off_time)
                 if not Main_Game_Variables.pet.immortal:
                     Main_Game_Variables.pet.dead = True
+                    Main_Game_Variables.pet.dead_reason = "neglect"
 
             elif Main_Game_Variables.pet.collective_stage != "Adult" and Main_Game_Variables.pet.collective_stage == "Egg":
                 # at this stage the pet would be dead (if mortality was on)
@@ -190,6 +192,7 @@ def continue_from_save():
                 teen_to_adult(game_off_time)
                 if not Main_Game_Variables.pet.immortal:
                     Main_Game_Variables.pet.dead = True
+                    Main_Game_Variables.pet.dead_reason = "neglect"
             else:
                 decrease_and_penalty(stats_count_decrease)
                 # checking for death
@@ -197,6 +200,7 @@ def continue_from_save():
                 if adult_death_period > 3:
                     if not Main_Game_Variables.pet.immortal:
                         Main_Game_Variables.pet.dead = True
+                        Main_Game_Variables.pet.dead_reason = "neglect"
 
         # --------- Teenager Evolution -------------------
         elif 6 > current_day >= 4:
@@ -211,6 +215,7 @@ def continue_from_save():
                 child_to_teen(game_off_time, off)
                 if not Main_Game_Variables.pet.immortal:
                     Main_Game_Variables.pet.dead = True
+                    Main_Game_Variables.pet.dead_reason = "neglect"
             elif Main_Game_Variables.pet.collective_stage != "Teenager" and Main_Game_Variables.pet.collective_stage == "Egg":
                 # at this stage the pet would be dead (if mortality was on)
                 # teenager B is picked because as an egg/child there are no penalties given so no
@@ -222,6 +227,7 @@ def continue_from_save():
                 child_to_teen(game_off_time, off)
                 if not Main_Game_Variables.pet.immortal:
                     Main_Game_Variables.pet.dead = True
+                    Main_Game_Variables.pet.dead_reason = "neglect"
             else:
                 decrease_and_penalty(stats_count_decrease)
 
@@ -231,6 +237,7 @@ def continue_from_save():
                 if 4 > current_day >= 3:
                     if not Main_Game_Variables.pet.immortal:
                         Main_Game_Variables.pet.dead = True
+                        Main_Game_Variables.pet.dead_reason = "neglect"
                 baby_to_child(game_off_time)
             elif Main_Game_Variables.pet.collective_stage != "Child" and Main_Game_Variables.pet.collective_stage == "Egg":
                 # Egg already had all the status at 0 and no penalties so all that needs to happen is to change the
@@ -239,6 +246,7 @@ def continue_from_save():
                 if 4 > current_day >= 3:
                     if not Main_Game_Variables.pet.immortal:
                         Main_Game_Variables.pet.dead = True
+                        Main_Game_Variables.pet.dead_reason = "neglect"
                 egg_to_baby()
                 off = True
                 baby_to_child(game_off_time)
