@@ -144,6 +144,7 @@ def continue_from_save():
         total_seconds = Game_Time.calculate_seconds(current_time, Game_Time.start_time)
 
         # calculating how many times a 'countdown' occurred whilst the game was off
+        print(Main_Game_Variables.pet.stage, Main_Game_Variables.pet.hunger_countdown)
         hunger_count = game_off_time // Main_Game_Variables.pet.hunger_countdown
         happiness_count = game_off_time // Main_Game_Variables.pet.happiness_countdown
         health_count = game_off_time // Main_Game_Variables.pet.health_countdown
@@ -161,7 +162,10 @@ def continue_from_save():
                 # at this stage the pet would be dead (if mortality was on)
                 next_evo = (6 * day_period) - game_on_time
                 # checks if the time passed is less than 3 (so the pet wont be set to dead)
-                off = True
+                if end_day >= 3 and current_day == 6:
+                    off = False
+                else:
+                    off = True
                 child_to_teen(next_evo, off)
                 teen_to_adult(game_off_time)
             elif Main_Game_Variables.pet.collective_stage != "Adult" and Main_Game_Variables.pet.collective_stage == "Baby":

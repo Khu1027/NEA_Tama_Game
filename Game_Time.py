@@ -57,9 +57,18 @@ def load_end_time():
 try:
     with open('start_time.txt') as start_file:
         start_time = json.load(start_file)
-    # returning the script variable to a datetime variable
-    start_time = datetime.strptime(start_time, FMT)
-    continue_game = True
+        if start_time == "delete":
+            # 'restarting' the file
+            start_time = time_now
+            start_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
+            with open("start_time.txt", "w") as start_file:
+                json.dump(start_time_save, start_file)
+
+            continue_game = False
+        else:
+            # returning the script variable to a datetime variable
+            start_time = datetime.strptime(start_time, FMT)
+            continue_game = True
 
 except:
     # This will be what alerts a new_game screen to load
@@ -72,11 +81,11 @@ except:
 
     continue_game = False
 
-def redefine_starttime():
-    start_time = time_now
-    start_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
-    with open("start_time.txt", "w") as start_file:
-        json.dump(start_time_save, start_file)
-
-    continue_game = False
-    return start_time, continue_game
+# def redefine_starttime():
+#     start_time = time_now
+#     start_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
+#     with open("start_time.txt", "w") as start_file:
+#         json.dump(start_time_save, start_file)
+#
+#     continue_game = False
+#     return start_time, continue_game

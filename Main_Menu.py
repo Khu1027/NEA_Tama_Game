@@ -4,11 +4,13 @@ import New_Buttons
 import pygame
 import sys
 import Variables
-import game_continue
+
 # Screens
 import Settings_Screen
 import Help_Screen
 import Death_Screen
+import Main_Game
+import game_continue
 
 #import NewGame_Screen
 
@@ -38,13 +40,12 @@ while True:
 
     if Start.surf_rect.collidepoint((mx,my)):
         if click:
-            # if Game_Time.new_game:
-            #     NewGame_Screen.display_screen()
-            # if not Game_Time.new_game:
-            #     Main_Game.display_screen()
             # The continue_game file checks if the game has a save file or not
-            game_continue.continue_from_save()
-            import Main_Game
+            # then continues if it does and the pet is not dead,
+            # but doesn't continue the game if the pet is dead and starts a new one
+            if not Death_Screen.dead:
+                if Death_Screen.continue_game:
+                    game_continue.continue_from_save()
             Main_Game.display_screen()
     if Settings.surf_rect.collidepoint((mx,my)):
         if click:

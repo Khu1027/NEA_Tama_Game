@@ -90,15 +90,9 @@ def display_screen():
         else:
             Main_Game_Variables.save_all()
             Death_Screen.display_screen()
-            if Death_Screen.choice == 1:
-                # Death_Screen.delete_all_files()
-                # this will redefine all game files
-                Main_Game_Variables.redefine_files()
-                running = False
+            # if Death_Screen.choice == 1:
+            #     running = False
             if Death_Screen.choice == 2:
-                # Death_Screen.delete_all_files()
-                # this will redefine all game files
-                Main_Game_Variables.redefine_files()
                 running = False
 
         # -------------- event loop --------------------
