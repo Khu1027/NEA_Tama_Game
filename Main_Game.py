@@ -14,14 +14,14 @@ import Death_Screen
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
-screen = Variables.screen
-clock = Variables.clock
+# pygame.display.set_caption("Tama")
+# screen = Variables.screen
+# clock = Variables.clock
 buttons = New_Buttons
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
-def display_screen():
+def display_screen(screen, clock):
     # https://www.youtube.com/watch?v=YOCt8nsQqEo&t=90s
     click = False
     running = True
@@ -33,7 +33,7 @@ def display_screen():
             if Main_Game_Variables.settings_button.surf_rect.collidepoint((mx, my)):
                 if click:
                     Main_Game_Variables.save_all()
-                    Settings_Screen.display_screen()
+                    Settings_Screen.display_screen(screen, clock)
 
             if Main_Game_Variables.pet.stage != "Egg":
                 if Main_Game_Variables.feed_button.surf_rect.collidepoint((mx, my)):
@@ -89,7 +89,7 @@ def display_screen():
 
         else:
             Main_Game_Variables.save_all()
-            Death_Screen.display_screen()
+            Death_Screen.display_screen(screen, clock)
             # if Death_Screen.choice == 1:
             #     running = False
             if Death_Screen.choice == 2:

@@ -14,9 +14,6 @@ import Evolution
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
-screen = Variables.screen
-clock = Variables.clock
 buttons = New_Buttons
 
 # -------------- Statistic counters --------------------

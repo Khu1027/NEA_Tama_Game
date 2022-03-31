@@ -9,7 +9,6 @@ import Variables
 import Settings_Screen
 import Help_Screen
 import Death_Screen
-import Main_Game
 import game_continue
 
 #import NewGame_Screen
@@ -19,7 +18,7 @@ import game_continue
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
+pygame.display.set_caption("Shrub Life")
 screen = Variables.screen
 clock = Variables.clock
 buttons = New_Buttons
@@ -46,13 +45,14 @@ while True:
             if not Death_Screen.dead:
                 if Death_Screen.continue_game:
                     game_continue.continue_from_save()
-            Main_Game.display_screen()
+            import Main_Game
+            Main_Game.display_screen(screen, clock)
     if Settings.surf_rect.collidepoint((mx,my)):
         if click:
-            Settings_Screen.display_screen()
+            Settings_Screen.display_screen(screen, clock)
     if Help.surf_rect.collidepoint((mx,my)):
         if click:
-            Help_Screen.display_screen()
+            Help_Screen.display_screen(screen, clock)
 
     Title.draw_text()
     Start.draw()

@@ -32,6 +32,9 @@ class Button:
     def change_text(self, text):
         self.text_surf = Variables.game_font.render(text, True, "Black")
 
+    def change_colour(self, colour):
+        self.surf_rect_colour = colour
+
     def change_position(self, pos):
         self.surf_rect = pygame.Rect(pos, (self.width, self.height))
         self.surf_rect_colour = Variables.white

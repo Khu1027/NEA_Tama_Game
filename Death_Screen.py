@@ -12,9 +12,9 @@ import Main_Game_Variables
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
-screen = Variables.screen
-clock = Variables.clock
+# pygame.display.set_caption("Tama")
+# screen = Variables.screen
+# clock = Variables.clock
 buttons = New_Buttons
 
 dead = False
@@ -91,7 +91,7 @@ def delete_all_files():
 
 choice = 0
 
-def display_screen():
+def display_screen(screen, clock):
     click = False
     running = True
     global choice

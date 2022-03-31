@@ -12,9 +12,9 @@ import game_continue
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
-screen = Variables.screen
-clock = Variables.clock
+# pygame.display.set_caption("Tama")
+# screen = Variables.screen
+# clock = Variables.clock
 buttons = New_Buttons
 
 # Rn the game just draws text saying start
@@ -24,7 +24,7 @@ back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
 # warning_immortal =
 
-def display_screen():
+def display_screen(screen, clock):
     click = False
     running = True
     main_menu_running = True

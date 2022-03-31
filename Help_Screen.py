@@ -7,16 +7,16 @@ import New_Buttons
 pygame.init()
 
 # -------------- Setting the Environment -------------
-pygame.display.set_caption("Tama")
-screen = Variables.screen
-clock = Variables.clock
+# pygame.display.set_caption("Tama")
+# screen = Variables.screen
+# clock = Variables.clock
 buttons = New_Buttons
 
 # Rn the game just draws text saying start
 Message = buttons.Button("This is where the Help Screen will be", 200, 80, (550, 250))
 
 
-def display_screen():
+def display_screen(screen, clock):
     running = True
     while running:
         for event in pygame.event.get():
