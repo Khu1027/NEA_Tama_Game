@@ -100,6 +100,17 @@ def display_screen():
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
 
+        text_sick = """Your pet has passed away from illness."""
+        text_ignored = """Your pet has passed away from neglect."""
+        text_age = """Your pet has passed away from old age."""
+
+        if Main_Game_Variables.pet.dead_reason == "sick":
+            Message = buttons.Button(text_sick, 200, 75, (550, 250))
+        elif Main_Game_Variables.pet.dead_reason == "neglect":
+            Message = buttons.Button(text_ignored, 200, 75, (550, 250))
+        elif Main_Game_Variables.pet.dead_reason == "old age":
+            Message = buttons.Button(text_age, 200, 75, (550, 250))
+
         # The main game button doesn't work. write in evaluation
         # if New_Game_button.surf_rect.collidepoint((mx, my)):
         #     if click:

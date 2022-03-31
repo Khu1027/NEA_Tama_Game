@@ -134,6 +134,7 @@ def pet_check():
     if not pet.sick and sick_time_lapse >= pet.sick_day:
         print("This process is working")
         pet.sick = True
+        pet.dead_reason = "sick"
         # the countdowns will decrease a little faster (health faster than the rest)
         pet.hunger_countdown = (3 / 4) * pet.hunger_countdown
         pet.happiness_countdown = (3 / 4) * pet.happiness_countdown
@@ -143,7 +144,7 @@ def pet_check():
     if pet.sick:
         # here the status bar will show the pet is sick
         print("Pet is sick!!")
-        if pet.display_day - pet.sick_day >= 2:
+        if pet.display_day - pet.sick_day >= pet.sick_day:
             pet.dead = True
             pet.dead_reason = "sick"
         if pet.heal == 0:

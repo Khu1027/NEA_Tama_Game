@@ -132,6 +132,7 @@ def pet_check():
     sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))
     if not pet.sick and sick_time_lapse == pet.sick_day:
         pet.sick = True
+        pet.dead_reason = "sick"
         # the countdowns will decrease a little faster (health faster than the rest)
         pet.hunger_countdown = 3 / 4 * pet.hunger_countdown
         pet.happiness_countdown = 3 / 4 * pet.happiness_countdown
