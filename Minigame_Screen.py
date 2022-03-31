@@ -13,7 +13,7 @@ pygame.init()
 buttons = New_Buttons
 
 # Rn the game just draws text saying start
-Message = buttons.Button("This is where the Help Screen will be", 200, 80, (550, 250))
+Message = buttons.Button("This is where the minigame Screen will be", 200, 80, (550, 250))
 back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
 def display_screen(screen, clock):

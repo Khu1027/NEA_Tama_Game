@@ -18,7 +18,7 @@ pygame.init()
 buttons = New_Buttons
 
 # Rn the game just draws text saying start
-Message = buttons.Button("This is where the Settings Screen will be", 200, 80, (550, 250))
+Message = buttons.Button("This is where the Settings Screen will be", 200, 80, (550, 70))
 back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
 
@@ -34,9 +34,9 @@ def display_screen(screen, clock):
 
         # Creating Immortality Button
         if not Main_Game_Variables.pet.immortal:
-            immortality_button = buttons.Button("Off", 200, 50, (575, 25))
+            immortality_button = buttons.Button("Off", 200, 50, (575, 150))
         else:
-            immortality_button = buttons.Button("On", 200, 50, (575, 25))
+            immortality_button = buttons.Button("On", 200, 50, (575, 150))
 
         # Checking Collisions
         if back_button.surf_rect.collidepoint((mx, my)):

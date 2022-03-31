@@ -13,7 +13,6 @@ import game_continue
 
 #import NewGame_Screen
 
-
 # -------------- Initialising Variables -------------
 pygame.init()
 
@@ -21,6 +20,7 @@ pygame.init()
 pygame.display.set_caption("Shrub Life")
 screen = Variables.screen
 clock = Variables.clock
+background = pygame.image.load("Pet Images/background.jpg")
 buttons = New_Buttons
 
 
@@ -36,6 +36,7 @@ click = False
 while True:
     mx, my = pygame.mouse.get_pos()
     screen.fill(Variables.matcha)
+    screen.blit(background, (0,0))
 
     if Start.surf_rect.collidepoint((mx,my)):
         if click:

@@ -40,12 +40,13 @@ wash_button = buttons.Button("Wash", 200, 75, (25, 450))
 play_button = buttons.Button("Play", 200, 75, (1055, 275))
 heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
-settings_button = buttons.Button("S", 75, 75, (1180, 50))
+settings_button = buttons.Button("S", 75, 75, (1180, 100))
 action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
 
 
 # -------------- Status Meter ---------------------------------
-
+def status_meter():
+    pass
 
 # ------------ Subroutines ---------------------------------------
 def digital_clock():
@@ -56,9 +57,9 @@ def digital_clock():
 
 
 def display_stats():
-    hunger_bar = buttons.Button(f"Hunger = {hunger_action.stat}", 200, 50, (350, 25))
-    happiness_bar = buttons.Button(f"Happiness = {happiness_action.stat}", 200, 50, (800, 25))
-    health_bar = buttons.Button(f"Health = {health_action.stat}", 200, 50, (575, 25))
+    hunger_bar = buttons.Button(f"Hunger = {hunger_action.stat}", 200, 50, (320, 25))
+    happiness_bar = buttons.Button(f"Happiness = {happiness_action.stat}", 200, 50, (770, 25))
+    health_bar = buttons.Button(f"Health = {health_action.stat}", 200, 50, (545, 25))
     hunger_bar.draw()
     happiness_bar.draw()
     health_bar.draw()
