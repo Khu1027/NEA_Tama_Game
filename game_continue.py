@@ -127,6 +127,8 @@ def teen_to_adult(next_evo):
 def continue_from_save():
     continue_game = Game_Time.continue_game
     if continue_game:
+        Main_Game_Variables.pet.current_stage()
+        Main_Game_Variables.pet.count_penalties()
         global day_period, hunger_count, happiness_count, health_count, game_on_time, game_off_time, end_day
         print("This process has been initiated BOOM")
         day_period = 60  # currently, one day is 60 seconds
@@ -251,7 +253,7 @@ def continue_from_save():
                 off = True
                 baby_to_child(game_off_time)
             else:
-                print("Stage = Child, decrease_and_penalty is at fault")
+                #print("Stage = Child, decrease_and_penalty is at fault")
                 decrease_and_penalty(stats_count_decrease)
 
         # --------- Baby Evolution -------------------

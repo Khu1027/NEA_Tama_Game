@@ -6,6 +6,7 @@ import random
 
 FMT = "%d/%m/%Y %H:%M:%S"
 
+
 # start_time = Game_Time.start_time
 # current_time = datetime.now().strptime("%d/%m/%Y %H:%M:%S")
 
@@ -48,7 +49,6 @@ class Evolution:
         # last_sick_day = tells us what the last day the pet was sick
         # sick_day = calculates what day after the last_sick_day the pet will be sick or is sick
         # heal = chooses a random number of times the user needs to click heal
-
 
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
@@ -103,6 +103,7 @@ class Evolution:
         return new_evolution
 
     def current_stage(self):
+        #print("entered current stage loop")
         # evolution over time calculating variables
         current = datetime.now()
         start = Game_Time.start_time
@@ -146,11 +147,11 @@ class Evolution:
                 # Code for playing the evolution animation
                 # Changing the type of teenager with the amount of penalties gained
                 if 0 <= self.penalties < 75:
-                    print(self.penalties)
+                    #print(self.penalties)
                     self.stage = "TeenagerG"
                     Game_Files.evolution = "TeenagerG"
                 elif 75 <= self.penalties < 150:
-                    print(self.penalties)
+                    #print(self.penalties)
                     self.stage = "TeenagerB"
                     Game_Files.evolution = "TeenagerB"
                 elif 150 <= self.penalties:
@@ -158,7 +159,7 @@ class Evolution:
                         self.dead = True
                         self.dead_reason = "neglect"
                     else:
-                        print(self.penalties)
+                        #print(self.penalties)
                         self.stage = "TeenagerB"
                         Game_Files.evolution = "TeenagerB"
                 # resetting the penalties
@@ -186,13 +187,13 @@ class Evolution:
                     self.stage = self.find_adult_evolution()
                     Game_Files.evolution = self.stage
                     Game_Files.collective_stage = "Adult"
-                # resetting the penalties
+                if self.collective_stage == "Adult":
+                    if day / 3 == 0 and day != 6:
+                        if self.penalties >= 100:
+                            self.dead = True
+                            self.dead_reason = "old age"
+                            # resetting the penalties
                 self.penalty_reset = True
-            if self.collective_stage == "Adult":
-                if day / 3 == 0 and day != 6:
-                    if self.penalties >= 100:
-                        self.dead = True
-                        self.dead_reason = "old age"
 
         # ------------------------------ Attributes of Stages ---------------------------------------------
         # Giving each of the stages of the pet different attributes
@@ -208,8 +209,9 @@ class Evolution:
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
 
+
         # Baby Stage
-        elif self.stage == "Baby":
+        if self.stage == "Baby":
             self.mortal = False
             # self.penalties = False
             self.hunger_countdown = 2
@@ -218,7 +220,7 @@ class Evolution:
             self.penalties = 0
 
         # Child Stage
-        elif self.stage == "Child":
+        if self.stage == "Child":
             # self.penalties = True
             self.hunger_countdown = 3
             self.happiness_countdown = 3
@@ -226,7 +228,7 @@ class Evolution:
             self.count_penalties()
 
         # Teenager Stage
-        elif self.stage == "TeenagerG" or self.stage == "TeenagerB":
+        if self.stage == "TeenagerG" or self.stage == "TeenagerB":
             self.count_penalties()
             self.mortal = True
             # self.penalties = True
@@ -243,57 +245,57 @@ class Evolution:
 
         # Adult stage
         # Teenager G = all the stats decrease a little quicker
-        elif self.collective_stage:
+        if self.collective_stage == "Adult":
             self.count_penalties()
 
-        elif self.stage == "AdultA":
-            self.mortal = True
-            # Adult A gets bored more quickly
-            self.hunger_countdown = 5
-            self.happiness_countdown = 3
-            self.health_countdown = 5
-        elif self.stage == "AdultB":
-            self.mortal = True
-            # Adult B gets dirty more quickly
-            self.hunger_countdown = 5
-            self.happiness_countdown = 5
-            self.health_countdown = 3
-        elif self.stage == "AdultC":
-            self.mortal = True
-            # Adult C gets hungry more quickly
-            self.hunger_countdown = 3
-            self.happiness_countdown = 5
-            self.health_countdown = 5
+            if self.stage == "AdultA":
+                self.mortal = True
+                # Adult A gets bored more quickly
+                self.hunger_countdown = 5
+                self.happiness_countdown = 3
+                self.health_countdown = 5
+            elif self.stage == "AdultB":
+                self.mortal = True
+                # Adult B gets dirty more quickly
+                self.hunger_countdown = 5
+                self.happiness_countdown = 5
+                self.health_countdown = 3
+            elif self.stage == "AdultC":
+                self.mortal = True
+                # Adult C gets hungry more quickly
+                self.hunger_countdown = 3
+                self.happiness_countdown = 5
+                self.health_countdown = 5
 
-        # Teenager B = all the stats decrease a little slower
-        elif self.stage == "AdultD":
-            self.mortal = True
-            # Adult D gets bored more quickly
-            self.hunger_countdown = 6
-            self.happiness_countdown = 5
-            self.health_countdown = 6
-        elif self.stage == "AdultE":
-            self.mortal = True
-            # Adult E gets dirty more quickly
-            self.hunger_countdown = 6
-            self.happiness_countdown = 6
-            self.health_countdown = 5
-        elif self.stage == "AdultF":
-            self.mortal = True
-            # Adult F gets hungry more quickly
-            self.hunger_countdown = 5
-            self.happiness_countdown = 6
-            self.health_countdown = 6
+            # Teenager B = all the stats decrease a little slower
+            elif self.stage == "AdultD":
+                self.mortal = True
+                # Adult D gets bored more quickly
+                self.hunger_countdown = 6
+                self.happiness_countdown = 5
+                self.health_countdown = 6
+            elif self.stage == "AdultE":
+                self.mortal = True
+                # Adult E gets dirty more quickly
+                self.hunger_countdown = 6
+                self.happiness_countdown = 6
+                self.health_countdown = 5
+            elif self.stage == "AdultF":
+                self.mortal = True
+                # Adult F gets hungry more quickly
+                self.hunger_countdown = 5
+                self.happiness_countdown = 6
+                self.health_countdown = 6
 
-        elif self.dead:
-            self.mortal = True
-            self.penalties = 0
-            # countdowns
-            self.hunger_countdown = 1
-            self.happiness_countdown = 1
-            self.health_countdown = 1
-            # other variables
-            self.immortal = Game_Files.immortal
-            # dead_reason = to personalise the death screen
-            self.penalty_reset = False
-            self.change_stage = False
+            elif self.dead:
+                self.mortal = True
+                self.penalties = 0
+                # countdowns
+                self.hunger_countdown = 1
+                self.happiness_countdown = 1
+                self.health_countdown = 1
+                # other variables
+                self.immortal = Game_Files.immortal
+                # dead_reason = to personalise the death screen
+                self.penalty_reset = False
+                self.change_stage = False

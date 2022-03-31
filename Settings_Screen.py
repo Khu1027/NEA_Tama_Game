@@ -16,12 +16,22 @@ pygame.init()
 # screen = Variables.screen
 # clock = Variables.clock
 buttons = New_Buttons
+background = pygame.image.load("Pet Images/background_ss_hs.png")
 
 # Rn the game just draws text saying start
 Message = buttons.Button("This is where the Settings Screen will be", 200, 80, (550, 70))
 back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
+# ---------- Buttons --------------
+save_and_quit = buttons.Button("Save and Quit", 200, 50, (575, 200))
+help_screen = buttons.Button("Help", 200, 50, (575, 300))
+music_text = buttons.Button("Music: ", 200, 50, (100, 400))
+immortality_text = buttons.Button("Immortality: ", 200, 50, (100, 500))
 
+reset_all = buttons.Button("Reset All", 200, 50, (100,500))
+reset_all.change_colour("DE3C1A")
+reset_all_warning_surf = buttons.Button("", 800, 500, (240, 110))
+#reset_all_warning = buttons.Button(200, 50, )
 # warning_immortal =
 
 def display_screen(screen, clock):
@@ -31,12 +41,13 @@ def display_screen(screen, clock):
     while running:
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
+        screen.blit(background, (0,0))
 
         # Creating Immortality Button
         if not Main_Game_Variables.pet.immortal:
-            immortality_button = buttons.Button("Off", 200, 50, (575, 150))
+            immortality_button = buttons.Button("Off", 200, 50, (575, 500))
         else:
-            immortality_button = buttons.Button("On", 200, 50, (575, 150))
+            immortality_button = buttons.Button("On", 200, 50, (575, 500))
 
         # Checking Collisions
         if back_button.surf_rect.collidepoint((mx, my)):

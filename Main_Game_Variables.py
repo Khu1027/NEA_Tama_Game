@@ -34,7 +34,7 @@ health_action = Actions.Action(health, health_static, "health", Game_Files.healt
 
 # ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
-pet.current_stage()
+#print(pet.stage,pet.hunger_countdown)
 
 # ------------- Action Buttons -----------------------------
 feed_button = buttons.Button("Feed", 200, 75, (25, 275))
@@ -89,107 +89,109 @@ def pet_display():
         Variables.screen.blit(pet_graphic, pet_cords)
     # Baby display
     if pet.stage == "Baby":
-        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/Baby_Sad.png")
-            Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/Baby_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-            if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
-                pet_graphic = pygame.image.load("Pet Images/Baby_Happy.png")
-                Variables.screen.blit(pet_graphic, pet_cords)
+        if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
+            pet_graphic = pygame.image.load("Pet Images/Baby_Happy.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
+        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
+            pet_graphic = pygame.image.load("Pet Images/Baby_Sad.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
+
     # Child Display
     if pet.stage == "Child":
-        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/Child_Sad.png")
-            Variables.screen.blit(pet_graphic, pet_cords)
+
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/Child_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-            if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
-                pet_graphic = pygame.image.load("Pet Images/Child_Happy.png")
-                Variables.screen.blit(pet_graphic, pet_cords)
+        if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
+            pet_graphic = pygame.image.load("Pet Images/Child_Happy.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
+        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
+            pet_graphic = pygame.image.load("Pet Images/Child_Sad.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
     # Teenager Display
     if pet.stage == "TeenagerG":
-        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/TeenG_Sad.png")
-            Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/TeenG_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/TeenG_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "TeenagerB":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/TeenB_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/TeenG_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "TeenagerB":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/TeenB_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/TeenB_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
+            pet_graphic = pygame.image.load("Pet Images/TeenB_Sad.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
     # Adult Display
     if pet.stage == "AdultA":
-        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_A_Sad.png")
-            Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_A_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_A_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "AdultB":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_B_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/A_A_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "AdultB":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_B_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_B_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "AdultC":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_C_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/A_B_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "AdultC":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_C_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_C_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "AdultD":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_D_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/A_C_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "AdultD":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_D_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_D_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "AdultE":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_E_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/A_D_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "AdultE":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_E_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_E_Happy.png")
             Variables.screen.blit(pet_graphic, pet_cords)
-    if pet.stage == "AdultF":
         if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
-            pet_graphic = pygame.image.load("Pet Images/A_F_Sad.png")
+            pet_graphic = pygame.image.load("Pet Images/A_E_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
+    if pet.stage == "AdultF":
         if hunger_action.stat > 0 or health_action.stat > 0 or happiness_action.stat > 0:
             pet_graphic = pygame.image.load("Pet Images/A_F_Normal.png")
             Variables.screen.blit(pet_graphic, pet_cords)
         if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
             pet_graphic = pygame.image.load("Pet Images/A_F_Happy.png")
+            Variables.screen.blit(pet_graphic, pet_cords)
+        if (hunger_action.stat == 0 and happiness_action.stat == 0 and health_action.stat == 0) or pet.sick:
+            pet_graphic = pygame.image.load("Pet Images/A_F_Sad.png")
             Variables.screen.blit(pet_graphic, pet_cords)
 
 
@@ -279,7 +281,7 @@ def pet_check():
         sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))
         # print(sick_time_lapse)
         if not pet.sick and sick_time_lapse >= pet.sick_day:
-            print("This process is working")
+            #print("This process is working")
             pet.sick = True
             pet.dead_reason = "sick"
             # the countdowns will decrease a little faster (health faster than the rest)
