@@ -14,6 +14,7 @@ class Button:
         self.width = width
         self.height = height
         self.pos = pos
+        self.image = None
 
         self.surf_rect = pygame.Rect(self.pos, (self.width, self.height))
         self.surf_rect_colour = Variables.white
@@ -38,3 +39,9 @@ class Button:
     def change_position(self, pos):
         self.surf_rect = pygame.Rect(pos, (self.width, self.height))
         self.surf_rect_colour = Variables.white
+
+    def draw_image(self, image):
+        self.image = image
+
+        pygame.draw.rect(Variables.screen, self.surf_rect_colour, self.surf_rect)
+        Variables.screen.blit(self.image, self.pos)

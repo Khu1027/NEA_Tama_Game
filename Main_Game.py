@@ -3,12 +3,14 @@ import sys
 # variables
 import Main_Game_Variables
 import Game_Files
-import Game_Time
+import game_continue
+# import Game_Time
 import Variables
 import New_Buttons
 # game screens
 import Settings_Screen
 import Death_Screen
+import Minigame_Screen
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -18,6 +20,7 @@ pygame.init()
 # screen = Variables.screen
 # clock = Variables.clock
 buttons = New_Buttons
+background = pygame.image.load("Pet Images/background.jpg")
 
 # ---------------------- Main Game Loop ----------------------------------------------
 
@@ -29,11 +32,13 @@ def display_screen(screen, clock):
         if not Main_Game_Variables.pet.dead:
             mx, my = pygame.mouse.get_pos()
             screen.fill(Variables.matcha)
+            screen.blit(background, (0, 0))
 
-            if Main_Game_Variables.settings_button.surf_rect.collidepoint((mx, my)):
+            if Main_Game_Variables.settings_button.surf_rect.collidepoint(mx, my):
                 if click:
                     Main_Game_Variables.save_all()
                     Settings_Screen.display_screen(screen, clock)
+                    Main_Game_Variables.save_all()
 
             if Main_Game_Variables.pet.stage != "Egg":
                 if Main_Game_Variables.feed_button.surf_rect.collidepoint((mx, my)):
@@ -50,9 +55,14 @@ def display_screen(screen, clock):
 
                 if Main_Game_Variables.play_button.surf_rect.collidepoint((mx, my)):
                     if click:
-                        # increase happiness by 1
+                        # increase health by 1
                         Main_Game_Variables.happiness_action.increase()
                         Game_Files.play += 1
+
+                        # # display minigame screens
+                        # Minigame_Screen.display_screen(screen, clock)
+                        # # game_continue.continue_from_save()
+                        # Main_Game_Variables.happiness_action.stat = Minigame_Screen.game_happiness
 
                 if Main_Game_Variables.heal_button.surf_rect.collidepoint((mx, my)):
                     if click:
@@ -61,25 +71,27 @@ def display_screen(screen, clock):
                         # if the pet is sick (random out of 3 to heal the pet)
                         # otherwise the pet is unable to be healed (error message is shown)
 
-            else:
-                if Main_Game_Variables.feed_button.surf_rect.collidepoint((mx, my)):
-                    if click:
-                        Main_Game_Variables.action_error_button.draw()
-                if Main_Game_Variables.wash_button.surf_rect.collidepoint((mx, my)):
-                    if click:
-                        Main_Game_Variables.action_error_button.draw()
-                if Main_Game_Variables.play_button.surf_rect.collidepoint((mx, my)):
-                    if click:
-                        Main_Game_Variables.action_error_button.draw()
-                if Main_Game_Variables.heal_button.surf_rect.collidepoint((mx, my)):
-                    if click:
-                        Main_Game_Variables.action_error_button.draw()
+            # else:
+            #     if Main_Game_Variables.feed_button.surf_rect.collidepoint((mx, my)):
+            #         if click:
+            #             Main_Game_Variables.action_error_button.draw()
+            #     if Main_Game_Variables.wash_button.surf_rect.collidepoint((mx, my)):
+            #         if click:
+            #             Main_Game_Variables.action_error_button.draw()
+            #     if Main_Game_Variables.play_button.surf_rect.collidepoint((mx, my)):
+            #         if click:
+            #             Main_Game_Variables.action_error_button.draw()
+            #     if Main_Game_Variables.heal_button.surf_rect.collidepoint((mx, my)):
+            #         if click:
+            #             Main_Game_Variables.action_error_button.draw()
 
             Main_Game_Variables.mirror_penalties()
             Main_Game_Variables.pet.current_stage()
             Main_Game_Variables.pet_check()
             Main_Game_Variables.decrease_count()
-            Main_Game_Variables.display_pet(Main_Game_Variables.pet)
+            # Main_Game_Variables.display_pet(Main_Game_Variables.pet)
+            Main_Game_Variables.status_meter()
+            Main_Game_Variables.pet_display()
             Main_Game_Variables.digital_clock()
             Main_Game_Variables.display_day()
             Main_Game_Variables.display_stats()

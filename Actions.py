@@ -29,8 +29,8 @@ class Action:
 
             if self.stat == 0:
                 if not self.warning:
-                    warning = buttons.Button(f"Your pet's {self.stat_name} is low!", 500, 80, (550, 450))
-                    warning.draw_text()
+                    # warning = buttons.Button(f"Your pet's {self.stat_name} is low!", 500, 80, (550, 450))
+                    # warning.draw_text()
                     self.warning = True
                 if self.warning:
                     self.penalty +=1
