@@ -72,6 +72,7 @@ def status_meter():
         Variables.screen.blit(status, status_cords)
     if hunger_action.stat == 5 and happiness_action.stat == 5 and health_action.stat == 5:
         status = pygame.image.load("Pet Images/happy.png")
+        Variables.screen.blit(status, status_cords)
 
     if pet.sick:
         status = pygame.image.load("Pet Images/sick.png")
