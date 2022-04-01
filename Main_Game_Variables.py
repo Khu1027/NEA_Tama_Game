@@ -17,6 +17,7 @@ pygame.init()
 buttons = New_Buttons
 status_cords = (1000, 40)
 pet_cords = (0, 0)
+running = False
 
 # -------------- Statistic counters --------------------
 hunger = Game_Files.hunger

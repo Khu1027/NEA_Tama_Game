@@ -16,9 +16,6 @@ import Minigame_Screen
 pygame.init()
 
 # -------------- Setting the Environment -------------
-# pygame.display.set_caption("Tama")
-# screen = Variables.screen
-# clock = Variables.clock
 buttons = New_Buttons
 background = pygame.image.load("Pet Images/background.jpg")
 
@@ -27,8 +24,8 @@ background = pygame.image.load("Pet Images/background.jpg")
 def display_screen(screen, clock):
     # https://www.youtube.com/watch?v=YOCt8nsQqEo&t=90s
     click = False
-    running = True
-    while running:
+    Main_Game_Variables.running = True
+    while Main_Game_Variables.running:
         if not Main_Game_Variables.pet.dead:
             mx, my = pygame.mouse.get_pos()
             screen.fill(Variables.matcha)
@@ -105,7 +102,7 @@ def display_screen(screen, clock):
             # if Death_Screen.choice == 1:
             #     running = False
             if Death_Screen.choice == 2:
-                running = False
+                Main_Game_Variables.running = False
 
         # -------------- event loop --------------------
         for event in pygame.event.get():
@@ -119,7 +116,7 @@ def display_screen(screen, clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     Main_Game_Variables.save_all()
-                    running = False
+                    Main_Game_Variables.running = False
 
         pygame.display.flip()
         clock.tick(60)

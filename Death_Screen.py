@@ -12,10 +12,8 @@ import Main_Game_Variables
 pygame.init()
 
 # -------------- Setting the Environment -------------
-# pygame.display.set_caption("Tama")
-# screen = Variables.screen
-# clock = Variables.clock
 buttons = New_Buttons
+background = pygame.image.load("Pet Images/background_ds.png")
 
 dead = False
 
@@ -34,27 +32,17 @@ text_ignored = """Your pet has passed away from neglect."""
 text_age = """Your pet has passed away from old age."""
 
 if Main_Game_Variables.pet.dead_reason == "sick":
-    Message = buttons.Button(text_sick, 200, 75, (550, 250))
+    Message = buttons.Button(text_sick, 200, 75, (540, 350))
 elif Main_Game_Variables.pet.dead_reason == "neglect":
-    Message = buttons.Button(text_ignored, 200, 75, (550, 250))
+    Message = buttons.Button(text_ignored, 200, 75, (540, 350))
 elif Main_Game_Variables.pet.dead_reason == "old age":
-    Message = buttons.Button(text_age, 200, 75, (550, 250))
+    Message = buttons.Button(text_age, 200, 75, (540, 350))
 
-New_Game_button = buttons.Button("New Game", 200, 75, (100, 500))
-End_Game_button = buttons.Button("Quit Game", 200, 75, (700, 500))
+New_Game_button = buttons.Button("New Game", 200, 75, (200, 500))
+End_Game_button = buttons.Button("Quit Game", 200, 75, (900, 500))
+
 
 def delete_all_files():
-    # # need to close all files first to delete them
-    # Main_Game_Variables.save_all()
-    # Game_Time.start_file.close()
-    # #Game_Time.end_file.close()
-    # Game_Files.evolution_file.close()
-    # Game_Files.immortal_file.close()
-    # Game_Files.penalty_file.close()
-    # Game_Files.status_file.close()
-    # Game_Files.sick_file.close()
-    # Game_Files.user_actions_file.close()
-
     try:
         os.remove("end_time.txt")
     except OSError as e:  # name the Exception `e`
@@ -91,6 +79,7 @@ def delete_all_files():
 
 choice = 0
 
+
 def display_screen(screen, clock):
     click = False
     running = True
@@ -99,6 +88,7 @@ def display_screen(screen, clock):
     while running:
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
+        screen.blit(background, (0,0))
 
         text_sick = """Your pet has passed away from illness."""
         text_ignored = """Your pet has passed away from neglect."""

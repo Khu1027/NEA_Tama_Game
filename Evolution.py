@@ -209,6 +209,9 @@ class Evolution:
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
 
+        print("entered the current stage loop")
+        print(self.stage)
+        print(self.collective_stage)
 
         # Baby Stage
         if self.stage == "Baby":
@@ -247,7 +250,6 @@ class Evolution:
         # Teenager G = all the stats decrease a little quicker
         if self.collective_stage == "Adult":
             self.count_penalties()
-
             if self.stage == "AdultA":
                 self.mortal = True
                 # Adult A gets bored more quickly
@@ -281,6 +283,7 @@ class Evolution:
                 self.happiness_countdown = 6
                 self.health_countdown = 5
             elif self.stage == "AdultF":
+                print("entered this loop")
                 self.mortal = True
                 # Adult F gets hungry more quickly
                 self.hunger_countdown = 5

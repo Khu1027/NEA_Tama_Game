@@ -126,8 +126,8 @@ def teen_to_adult(next_evo):
 # ------------------------------- Main game_continue function ----------------------------------------------
 def continue_from_save():
     continue_game = Game_Time.continue_game
+    Main_Game_Variables.pet.current_stage()
     if continue_game:
-        Main_Game_Variables.pet.current_stage()
         Main_Game_Variables.pet.count_penalties()
         global day_period, hunger_count, happiness_count, health_count, game_on_time, game_off_time, end_day
         print("This process has been initiated BOOM")
@@ -199,10 +199,12 @@ def continue_from_save():
                 decrease_and_penalty(stats_count_decrease)
                 # checking for death
                 adult_death_period = current_day - end_day
-                if adult_death_period > 3:
+                if adult_death_period > 3 or Main_Game_Variables.pet.penalties >= 100:
                     if not Main_Game_Variables.pet.immortal:
                         Main_Game_Variables.pet.dead = True
                         Main_Game_Variables.pet.dead_reason = "neglect"
+
+
 
         # --------- Teenager Evolution -------------------
         elif 6 > current_day >= 4:
