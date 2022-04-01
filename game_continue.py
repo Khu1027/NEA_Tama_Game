@@ -84,7 +84,7 @@ def child_to_teen(next_evo, off):
         if 0 <= Main_Game_Variables.pet.penalties < 75:
             Main_Game_Variables.pet.stage = "TeenagerG"
             Game_Files.evolution = "TeenagerG"
-        elif 75 <= Main_Game_Variables.pet.penalties:
+        elif 75 <= Main_Game_Variables.pet.penalties or ((10 > Game_Files.feed) and (10 > Game_Files.play)  and (10 > Game_Files.wash)):
             Main_Game_Variables.pet.stage = "TeenagerB"
             Game_Files.evolution = "TeenagerB"
     else:
@@ -101,8 +101,6 @@ def child_to_teen(next_evo, off):
     Main_Game_Variables.pet_check()
 
     decrease_and_penalty(after_evolution)
-
-
 
 def teen_to_adult(next_evo):
     # print("Entered the adult loop")

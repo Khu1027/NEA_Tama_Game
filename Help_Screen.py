@@ -11,9 +11,8 @@ pygame.init()
 
 # -------------- Setting the Environment -------------
 buttons = New_Buttons
-
+background = pygame.image.load("Pet Images/help background.png")
 # Rn the game just draws text saying start
-Message = buttons.Button("This is where the Help Screen will be", 200, 80, (550, 250))
 back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
 def display_screen(screen, clock):
@@ -22,6 +21,7 @@ def display_screen(screen, clock):
     while running:
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
+        screen.blit(background, (0,0))
 
         # Checking Collisions
         if back_button.surf_rect.collidepoint((mx, my)):
@@ -31,7 +31,6 @@ def display_screen(screen, clock):
                 running = False
 
         back_button.draw()
-        Message.draw_text()
 
         click = False
 

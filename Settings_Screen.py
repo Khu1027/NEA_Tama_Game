@@ -7,6 +7,7 @@ import Variables
 import Game_Time
 # import Game_Files
 import game_continue
+import Help_Screen
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -40,7 +41,7 @@ def display_screen(screen, clock):
     global music
     click = False
     running = True
-    main_game_running = Main_Game_Variables.running
+    #main_game_running = Main_Game_Variables.running
     while running:
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
@@ -51,6 +52,8 @@ def display_screen(screen, clock):
             immortality_button = buttons.Button("Off", 200, 50, (575, 500))
         else:
             immortality_button = buttons.Button("On", 200, 50, (575, 500))
+
+        music_button = buttons.Button("On", 200, 50, (575, 400))
 
         # Checking Collisions
         if back_button.surf_rect.collidepoint((mx, my)):
@@ -63,6 +66,9 @@ def display_screen(screen, clock):
                 Main_Game_Variables.save_all()
                 Main_Game_Variables.running = False
                 running = False
+        if help_screen.surf_rect.collidepoint((mx, my)):
+            if click:
+                Help_Screen.display_screen(screen, clock)
         if immortality_button.surf_rect.collidepoint((mx, my)):
             if click:
                 print("This works")
