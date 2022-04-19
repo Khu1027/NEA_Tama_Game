@@ -15,11 +15,12 @@ class Button:
         self.height = height
         self.pos = pos
         self.image = None
+        self.text_colour = "Black"
 
         self.surf_rect = pygame.Rect(self.pos, (self.width, self.height))
         self.surf_rect_colour = Variables.white
 
-        self.text_surf = Variables.game_font.render(self.text, True, "Black")
+        self.text_surf = Variables.game_font.render(self.text, True, self.text_colour)
         self.text_rect = self.text_surf.get_rect(center=self.surf_rect.center)
 
     def draw(self):
@@ -35,6 +36,10 @@ class Button:
 
     def change_colour(self, colour):
         self.surf_rect_colour = colour
+
+    def change_text_colour(self, colour):
+        self.text_colour = colour
+        self.text_surf = Variables.game_font.render(self.text, True, self.text_colour)
 
     def change_position(self, pos):
         self.surf_rect = pygame.Rect(pos, (self.width, self.height))

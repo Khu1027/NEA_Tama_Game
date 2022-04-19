@@ -30,7 +30,6 @@ class Evolution:
         self.change_stage = False
         # sick variables
         self.sick = Game_Files.sick
-        self.last_sick_day = Game_Files.last_sick_day
         self.sick_day = Game_Files.sick_day
         self.heal = random.randint(1, 3)
 
@@ -46,13 +45,12 @@ class Evolution:
         # Penalty Reset = To signify to the main code if the penalties should be reset or not
         # Change_Stage = A signifier that the pet has changed stage = saves files
         # sick = tells whether the pet is sick or not
-        # last_sick_day = tells us what the last day the pet was sick
-        # sick_day = calculates what day after the last_sick_day the pet will be sick or is sick
+        # sick_day = calculates what day the pet will next be sick.
         # heal = chooses a random number of times the user needs to click heal
 
     def count_penalties(self):
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
-        print(self.penalties)
+        #print(self.penalties)
 
     def find_adult_evolution(self):
         # This subroutine compares the different action buttons and then calculates which adult is the result
@@ -209,9 +207,9 @@ class Evolution:
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
 
-        print("entered the current stage loop")
-        print(self.stage)
-        print(self.collective_stage)
+        #print("entered the current stage loop")
+        #print(self.stage)
+        #print(self.collective_stage)
 
         # Baby Stage
         if self.stage == "Baby":

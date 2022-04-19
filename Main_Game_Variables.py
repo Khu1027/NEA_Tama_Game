@@ -33,6 +33,10 @@ hunger_action = Actions.Action(hunger, hunger_static, "hunger", Game_Files.hunge
 happiness_action = Actions.Action(happiness, happiness_static, "happiness", Game_Files.happiness_penalty)
 health_action = Actions.Action(health, health_static, "health", Game_Files.health_penalty)
 
+print(hunger_action.penalty)
+print(health_action.penalty)
+print(happiness_action.penalty)
+
 # ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
 #print(pet.stage,pet.hunger_countdown)
@@ -199,7 +203,7 @@ def pet_display():
 # ------------ Subroutines ---------------------------------------
 def digital_clock():
     time_now = datetime.now()
-    current_time = time_now.strftime("%H:%M:%S")
+    current_time = time_now.strftime("%H:%M")
     d_clock = buttons.Button(current_time, 150, 50, (25, 25))
     d_clock.draw()
 
@@ -219,7 +223,6 @@ def display_buttons():
     play_button.draw()
     heal_button.draw()
     settings_button.draw_image(settings_image)
-
 
 
 def display_day():
@@ -257,7 +260,7 @@ def save_all():
     # --- Saving the ending time ---
     Game_Time.save_end_time()
     # --- Saving sick variables ---
-    Game_Files.save_count((pet.sick, pet.last_sick_day, pet.sick_day), "sick.txt")
+    Game_Files.save_count((pet.sick, pet.sick_day), "sick.txt")
     # --- Saving immortality ----
     Game_Files.save_count(pet.immortal, "immortal.txt")
 
@@ -279,29 +282,36 @@ def pet_check():
     # Sickness check
 
     if pet.stage != "Egg" and pet.stage != "Baby":
-        sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))
+        # sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))
         # print(sick_time_lapse)
-        if not pet.sick and sick_time_lapse >= pet.sick_day:
+        if not pet.sick and pet.display_day >= pet.sick_day:
             #print("This process is working")
             pet.sick = True
-            pet.dead_reason = "sick"
             # the countdowns will decrease a little faster (health faster than the rest)
             pet.hunger_countdown = (3 / 4) * pet.hunger_countdown
             pet.happiness_countdown = (3 / 4) * pet.happiness_countdown
             pet.health_countdown = (2 / 3) * pet.health_countdown
             save_all()
 
+            # This if statement is to check if 2 days have passed since the pet's assigned sick day,
+            # this is so that if the game is continued from closing, then the game will check if the
+            # pet died from illness or not
+            if pet.display_day >= (pet.sick_day + 2):
+                pet.dead = True
+                pet.dead_reason = "sick"
+
         if pet.sick:
             # here the status bar will show the pet is sick
             print("Pet is sick!!")
-            if pet.display_day - pet.sick_day >= pet.sick_day:
+            # If the pet has been sick for 2 days then it will be assigned as dead
+            if pet.display_day >= (pet.sick_day + 2):
                 if not pet.immortal:
                     pet.dead = True
                     pet.dead_reason = "sick"
             if pet.heal == 0:
                 pet.sick = False
-                pet.last_sick_day = (pet.display_day - 1)
-                pet.sick_day = random.randint(1, 4)
+                # this will choose a day after the current day that the pet will become sick again.
+                pet.sick_day = pet.display_day + random.randint(2, 4)
                 print("Pet has been healed!")
                 # returning countdowns to normal
                 pet.hunger_countdown = pet.hunger_countdown / (3 / 4)
@@ -312,6 +322,9 @@ def pet_check():
 
 
 def mirror_penalties():
+    print(hunger_action.penalty)
+    print(health_action.penalty)
+    print(happiness_action.penalty)
     # This saves the action penalties as the Game_Files penalties so that it can be used in
     # Evolution.py without any circular import errors
     Game_Files.hunger_penalty = hunger_action.penalty

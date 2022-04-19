@@ -1,8 +1,10 @@
 # Main menu.py
+import datetime
 
 import New_Buttons
 import pygame
 import sys
+import json
 import Variables
 
 # Screens
@@ -10,6 +12,7 @@ import Settings_Screen
 import Help_Screen
 import Death_Screen
 import game_continue
+import Main_Game
 
 # import NewGame_Screen
 
@@ -23,7 +26,8 @@ clock = Variables.clock
 background = pygame.image.load("Pet Images/background.jpg")
 buttons = New_Buttons
 
-Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
+Title = pygame.image.load("Pet Images/Shrub Life Title.png")
+# Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
 Start = buttons.Button("Start", 200, 60, (550, 350))
 Settings = buttons.Button("Settings", 200, 60, (550, 450))
 Help = buttons.Button("Help", 200, 60, (550, 550))
@@ -43,7 +47,6 @@ while True:
             # but doesn't continue the game if the pet is dead and starts a new one
             if not Death_Screen.dead:
                 game_continue.continue_from_save()
-            import Main_Game
 
             Main_Game.display_screen(screen, clock)
     if Settings.surf_rect.collidepoint((mx, my)):
@@ -53,7 +56,8 @@ while True:
         if click:
             Help_Screen.display_screen(screen, clock)
 
-    Title.draw_text()
+    # Title.draw_text()
+    Variables.screen.blit(Title, (400, 200))
     Start.draw()
     Settings.draw()
     Help.draw()
@@ -62,8 +66,19 @@ while True:
         pygame.quit()
         sys.exit()
     click = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            # ------------- Saving end_time if the user closed the game without starting it ---------------
+            try:
+                with open("end_time.txt") as end_file:
+                    print("End file exists")
+            except:
+                end_time = datetime.datetime.now()
+                end_time_save = end_time.strftime("%d/%m/%Y %H:%M:%S")
+                with open("end_time.txt", "w") as end_file:
+                    json.dump(end_time_save, end_file)
+            # -------------------------------------------------------------------------
             pygame.quit()
             sys.exit()
         if event.type == pygame.MOUSEBUTTONDOWN:

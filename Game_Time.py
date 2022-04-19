@@ -39,7 +39,7 @@ def current_day(current, start):
 def save_end_time():
     time_now = datetime.now()
     end_time = time_now
-    end_time_save = time_now.strftime("%d/%m/%Y %H:%M:%S")
+    end_time_save = end_time.strftime("%d/%m/%Y %H:%M:%S")
     with open("end_time.txt", "w") as end_file:
         json.dump(end_time_save, end_file)
 

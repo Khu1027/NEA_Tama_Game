@@ -73,7 +73,7 @@ def new_card_numbers():
         hidden_number = random.randint(1, 10)
 
 def check_answer(correct_guess, answer, game_round):
-    print("The check answer loop has been entered")
+    #print("The check answer loop has been entered")
     if correct_guess:
         if answer == "Higher":
             results_revealed_text.draw_text()

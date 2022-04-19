@@ -10,7 +10,7 @@ import New_Buttons
 # game screens
 import Settings_Screen
 import Death_Screen
-import Minigame_Screen
+#import Minigame_Screen
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -68,25 +68,11 @@ def display_screen(screen, clock):
                         # if the pet is sick (random out of 3 to heal the pet)
                         # otherwise the pet is unable to be healed (error message is shown)
 
-            # else:
-            #     if Main_Game_Variables.feed_button.surf_rect.collidepoint((mx, my)):
-            #         if click:
-            #             Main_Game_Variables.action_error_button.draw()
-            #     if Main_Game_Variables.wash_button.surf_rect.collidepoint((mx, my)):
-            #         if click:
-            #             Main_Game_Variables.action_error_button.draw()
-            #     if Main_Game_Variables.play_button.surf_rect.collidepoint((mx, my)):
-            #         if click:
-            #             Main_Game_Variables.action_error_button.draw()
-            #     if Main_Game_Variables.heal_button.surf_rect.collidepoint((mx, my)):
-            #         if click:
-            #             Main_Game_Variables.action_error_button.draw()
 
             Main_Game_Variables.mirror_penalties()
             Main_Game_Variables.pet.current_stage()
             Main_Game_Variables.pet_check()
             Main_Game_Variables.decrease_count()
-            # Main_Game_Variables.display_pet(Main_Game_Variables.pet)
             Main_Game_Variables.status_meter()
             Main_Game_Variables.pet_display()
             Main_Game_Variables.digital_clock()

@@ -3,6 +3,7 @@ import Main_Game_Variables
 import Game_Files
 from datetime import datetime
 
+
 # global day_period, hunger_count, happiness_count, health_count
 
 # ---- subroutines for calculating the decrease in status levels before and after evolution -----
@@ -21,27 +22,45 @@ def evolution_countdowns(previous_time, after_time):
 
 
 def decrease_and_penalty(status_countdown):
-    hunger = int(status_countdown[0])
-    happiness = int(status_countdown[1])
-    health = int(status_countdown[2])
+    hunger_decrease = int(status_countdown[0])
+    happiness_decrease = int(status_countdown[1])
+    health_decrease = int(status_countdown[2])
+
+    print(Main_Game_Variables.hunger_action.penalty)
+    print(Main_Game_Variables.health_action.penalty)
+    print(Main_Game_Variables.happiness_action.penalty)
 
     # taking away the hunger countdowns and giving penalties
-    Main_Game_Variables.hunger_action.stat -= hunger
+    Main_Game_Variables.hunger_action.stat -= hunger_decrease
     if Main_Game_Variables.hunger_action.stat < 0:
-        Main_Game_Variables.hunger_action.penalty = Main_Game_Variables.hunger_action.penalty - (Main_Game_Variables.hunger_action.stat + 1)
+        print(Main_Game_Variables.hunger_action.penalty)
+        # Here I am adding the penalties to the hunger_action penalty file. Because the stat is already negative, to add it to the penalties
+        # the stat is taken away from the penalties ( -- = +)
+        Main_Game_Variables.hunger_action.penalty = Main_Game_Variables.hunger_action.penalty - (
+                    Main_Game_Variables.hunger_action.stat + 1)
+        print(Main_Game_Variables.hunger_action.penalty)
         Main_Game_Variables.hunger_action.stat = 0
     # taking away the happiness countdowns and giving penalties
-    Main_Game_Variables.happiness_action.stat -= happiness
+    Main_Game_Variables.happiness_action.stat -= happiness_decrease
     if Main_Game_Variables.happiness_action.stat < 0:
-        Main_Game_Variables.happiness_action.penalty = Main_Game_Variables.happiness_action.penalty - (Main_Game_Variables.happiness_action.stat + 1)
+        print(Main_Game_Variables.health_action.penalty)
+        Main_Game_Variables.happiness_action.penalty = Main_Game_Variables.happiness_action.penalty - (
+                    Main_Game_Variables.happiness_action.stat + 1)
+        print(Main_Game_Variables.health_action.penalty)
         Main_Game_Variables.happiness_action.stat = 0
     # taking away the health countdowns and giving penalties
-    Main_Game_Variables.health_action.stat -= health
+    Main_Game_Variables.health_action.stat -= health_decrease
     if Main_Game_Variables.health_action.stat < 0:
-        Main_Game_Variables.health_action.penalty = Main_Game_Variables.health_action.penalty - (Main_Game_Variables.health_action.stat + 1)
+        print(Main_Game_Variables.happiness_action.penalty)
+        Main_Game_Variables.health_action.penalty = Main_Game_Variables.health_action.penalty - (
+                    Main_Game_Variables.health_action.stat + 1)
+        print(Main_Game_Variables.happiness_action.penalty)
         Main_Game_Variables.health_action.stat = 0
 
     Main_Game_Variables.save_all()
+    print(Game_Files.hunger)
+    print(Game_Files.happiness)
+    print(Game_Files.health)
 
 
 # ---- Subroutines for all the evolutions (so that they can be reused for different situations ----
@@ -84,7 +103,8 @@ def child_to_teen(next_evo, off):
         if 0 <= Main_Game_Variables.pet.penalties < 75:
             Main_Game_Variables.pet.stage = "TeenagerG"
             Game_Files.evolution = "TeenagerG"
-        elif 75 <= Main_Game_Variables.pet.penalties or ((10 > Game_Files.feed) and (10 > Game_Files.play)  and (10 > Game_Files.wash)):
+        elif 75 <= Main_Game_Variables.pet.penalties or (
+                (10 > Game_Files.feed) and (10 > Game_Files.play) and (10 > Game_Files.wash)):
             Main_Game_Variables.pet.stage = "TeenagerB"
             Game_Files.evolution = "TeenagerB"
     else:
@@ -101,6 +121,7 @@ def child_to_teen(next_evo, off):
     Main_Game_Variables.pet_check()
 
     decrease_and_penalty(after_evolution)
+
 
 def teen_to_adult(next_evo):
     # print("Entered the adult loop")
@@ -200,9 +221,7 @@ def continue_from_save():
                 if adult_death_period > 3 or Main_Game_Variables.pet.penalties >= 100:
                     if not Main_Game_Variables.pet.immortal:
                         Main_Game_Variables.pet.dead = True
-                        Main_Game_Variables.pet.dead_reason = "neglect"
-
-
+                        Main_Game_Variables.pet.dead_reason = "old age"
 
         # --------- Teenager Evolution -------------------
         elif 6 > current_day >= 4:
@@ -253,7 +272,7 @@ def continue_from_save():
                 off = True
                 baby_to_child(game_off_time)
             else:
-                #print("Stage = Child, decrease_and_penalty is at fault")
+                # print("Stage = Child, decrease_and_penalty is at fault")
                 decrease_and_penalty(stats_count_decrease)
 
         # --------- Baby Evolution -------------------
