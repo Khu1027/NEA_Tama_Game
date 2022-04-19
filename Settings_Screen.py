@@ -67,9 +67,15 @@ def display_screen(screen, clock):
         # Checking Collisions
         if back_button.surf_rect.collidepoint((mx, my)):
             if click:
-                Game_Time.continue_game = True
-                game_continue.continue_from_save()
-                running = False
+                # This checks if the end file has been made to then continue from
+                # save file or to just end the event loop
+                try:
+                    with open("end_time.txt") as end_file:
+                        Game_Time.continue_game = True
+                        game_continue.continue_from_save()
+                        running = False
+                except:
+                    running = False
         if save_and_quit.surf_rect.collidepoint((mx, my)):
             if click:
                 Main_Game_Variables.save_all()
