@@ -6,7 +6,6 @@ import random
 
 FMT = "%d/%m/%Y %H:%M:%S"
 
-
 # start_time = Game_Time.start_time
 # current_time = datetime.now().strptime("%d/%m/%Y %H:%M:%S")
 
@@ -49,6 +48,7 @@ class Evolution:
         # heal = chooses a random number of times the user needs to click heal
 
     def count_penalties(self):
+        # calculates the total amount of penalties
         self.penalties = Game_Files.hunger_penalty + Game_Files.health_penalty + Game_Files.happiness_penalty
         #print(self.penalties)
 
@@ -125,7 +125,6 @@ class Evolution:
             if self.stage == "Baby":
                 self.collective_stage = "Child"
                 self.change_stage = True
-                # Code for playing the evolution animation
                 self.stage = "Child"
                 Game_Files.evolution = "Child"
                 Game_Files.collective_stage = "Child"
@@ -142,7 +141,6 @@ class Evolution:
                 self.collective_stage = "Teenager"
                 self.change_stage = True
                 self.count_penalties()
-                # Code for playing the evolution animation
                 # Changing the type of teenager with the amount of penalties gained
                 if 0 <= self.penalties < 75:
                     #print(self.penalties)
@@ -171,13 +169,13 @@ class Evolution:
                 self.count_penalties()
                 if not self.immortal:
                     if 0 <= self.penalties < 45:
-
+                        # finding the adult evolution
                         self.stage = self.find_adult_evolution()
                         Game_Files.evolution = self.stage
                         Game_Files.collective_stage = "Adult"
                     else:
                         self.dead = True
-                        self.dead_reason = "neglect"
+                        self.dead_reason = "old age"
                 else:
                     self.collective_stage = "Adult"
                     self.change_stage = True
@@ -206,10 +204,6 @@ class Evolution:
             # the self.countdown should be 0 as in the user should be unable to feed the pet
             # however the subroutines do not work with float or NoneType so as a replacement
             # the countdown length is 1
-
-        #print("entered the current stage loop")
-        #print(self.stage)
-        #print(self.collective_stage)
 
         # Baby Stage
         if self.stage == "Baby":

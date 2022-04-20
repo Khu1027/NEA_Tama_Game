@@ -36,10 +36,7 @@ def display_screen(screen, clock):
                 except:
                     running = False
 
-
-
         back_button.draw()
-
         click = False
 
         for event in pygame.event.get():

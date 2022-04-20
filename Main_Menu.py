@@ -14,8 +14,6 @@ import Death_Screen
 import game_continue
 import Main_Game
 
-# import NewGame_Screen
-
 # -------------- Initialising Variables -------------
 pygame.init()
 
@@ -27,6 +25,7 @@ background = pygame.image.load("Pet Images/background.jpg")
 buttons = New_Buttons
 
 Title = pygame.image.load("Pet Images/Shrub Life Title.png")
+
 # Title = buttons.Button("Shrub Life!", 200, 80, (550, 200))
 Start = buttons.Button("Start", 200, 60, (550, 350))
 Settings = buttons.Button("Settings", 200, 60, (550, 450))

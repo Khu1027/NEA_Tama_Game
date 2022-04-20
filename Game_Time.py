@@ -1,10 +1,8 @@
 import json
-# import time
-from datetime import date, datetime, timedelta
+from datetime import datetime
 
 time_now = datetime.now()
 FMT = "%d/%m/%Y %H:%M:%S"
-
 
 # ----------------- subroutines -------------------------------------
 def calculate_minutes(current, start):
@@ -13,12 +11,10 @@ def calculate_minutes(current, start):
     minutes = total_time / 60
     return minutes
 
-
 def calculate_seconds(current, start):
     time_diff = current - start
     total_time = time_diff.total_seconds()
     return total_time
-
 
 def calculate_days(minutes):
     days = minutes // 1
@@ -27,12 +23,10 @@ def calculate_days(minutes):
     # one day would last 1440 minutes, so you would divide by 1440
     return days
 
-
 def current_day(current, start):
     minutes = calculate_minutes(current, start)
     day = calculate_days(minutes)
     return day
-
 
 # The save_end_time and load_end_time functions saves and loads the time when the user closes the game
 # So that when the game is reopened the necessary calculations can be carried out.
@@ -50,7 +44,6 @@ def load_end_time():
     # returning the script variable to a datetime variable
     end_time = datetime.strptime(end_time, FMT)
     return end_time
-
 
 # --------------------------------------------------------------------
 # Start time

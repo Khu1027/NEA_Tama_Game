@@ -19,8 +19,6 @@ background = pygame.image.load("Pet Images/background_ss_hs.png")
 Title = pygame.image.load("Pet Images/Settings Title.png")
 music = "On"
 
-# Rn the game just draws text saying start
-# Message = buttons.Button("This is where the Settings Screen will be", 200, 80, (550, 70))
 back_button = buttons.Button("Back", 120, 50, (1115, 635))
 
 # ---------- Buttons --------------
@@ -36,17 +34,11 @@ immortality_text.change_text_colour("#FFFFFF")
 
 reset_all = buttons.Button("Reset All", 200, 50, (575,600))
 reset_all.change_colour("red")
-# reset_all_warning_surf = buttons.Button("", 800, 500, (240, 110))
-# reset_all_warning_1 = buttons.Button("Warning! This will reset all of your data and you will no longer have your pet.",600, 50, (40, 200))
-# reset_all_warning_2 = buttons.Button("Do you still want to reset your data?", 600, 50, (40, 275))
-# reset_yes = buttons.Button("YES", 200, 75, (200, 500))
-# reset_no = buttons.Button("NO", 200, 75, (900, 500))
 
 def display_screen(screen, clock):
     global music
     click = False
     running = True
-    #main_game_running = Main_Game_Variables.running
     while running:
         mx, my = pygame.mouse.get_pos()
         screen.fill(Variables.matcha)
@@ -116,7 +108,6 @@ def display_screen(screen, clock):
         immortality_text.draw_text()
         immortality_button.draw()
         reset_all.draw()
-        #Message.draw_text()
         click = False
 
         for event in pygame.event.get():

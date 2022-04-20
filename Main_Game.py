@@ -3,14 +3,11 @@ import sys
 # variables
 import Main_Game_Variables
 import Game_Files
-import game_continue
-# import Game_Time
 import Variables
 import New_Buttons
 # game screens
 import Settings_Screen
 import Death_Screen
-#import Minigame_Screen
 
 # -------------- Initialising Variables -------------
 pygame.init()
@@ -55,11 +52,6 @@ def display_screen(screen, clock):
                         # increase health by 1
                         Main_Game_Variables.happiness_action.increase()
                         Game_Files.play += 1
-
-                        # # display minigame screens
-                        # Minigame_Screen.display_screen(screen, clock)
-                        # # game_continue.continue_from_save()
-                        # Main_Game_Variables.happiness_action.stat = Minigame_Screen.game_happiness
 
                 if Main_Game_Variables.heal_button.surf_rect.collidepoint((mx, my)):
                     if click:

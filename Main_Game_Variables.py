@@ -39,7 +39,6 @@ print(happiness_action.penalty)
 
 # ------------- MAIN Pet evolution class object ------------------------
 pet = Evolution.Evolution()
-#print(pet.stage,pet.hunger_countdown)
 
 # ------------- Action Buttons -----------------------------
 feed_button = buttons.Button("Feed", 200, 75, (25, 275))
@@ -47,14 +46,11 @@ wash_button = buttons.Button("Wash", 200, 75, (25, 450))
 play_button = buttons.Button("Play", 200, 75, (1055, 275))
 heal_button = buttons.Button("Heal", 200, 75, (1055, 450))
 
-# These are now unneeded as the images have replaced them
-# settings_button = buttons.Button("S", 75, 75, (1180, 100))
-# action_error_button = buttons.Button("You can't do that right now!", 500, 75, (550, 450))
+# displaying image buttons
 settings_image = pygame.image.load("Pet Images/settings.png").convert()
 s_img_height = settings_image.get_height()
 s_img_width = settings_image.get_width()
 settings_button = buttons.Button("S", s_img_width, s_img_height, (1180, 100))
-
 
 # -------------- Status Meter / Pet Display ----------------------
 def status_meter():
@@ -277,9 +273,9 @@ def pet_check():
         health_action.penalty = 0
         pet.penalty_reset = False
 
-    pet.count_penalties()
-    # print("hunger countdown = ", pet.hunger_countdown)
     # Sickness check
+    # pet.count_penalties()
+    # print("hunger countdown = ", pet.hunger_countdown)
 
     if pet.stage != "Egg" and pet.stage != "Baby":
         # sick_time_lapse = (pet.display_day - (pet.last_sick_day + 1))

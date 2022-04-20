@@ -3,21 +3,14 @@ import New_Buttons
 #import Game_Files
 import Main_Game_Variables
 
-# Notes:
-# The act_time variable caused issues with the method running smoothly so it was removed.
-# It may be added / changed later on if needed
 buttons = New_Buttons
 
 class Action:
     def __init__(self, stat, static_point, stat_name, penalty): # act_time
         self.stat = stat
-        # act_time will tell us if the user has interacted with action
-        # if they did then the corresponding action will be taken
-        # self.act_time = act_time
         self.static_point = static_point
         self.penalty_static_point = static_point
         self.stat_name = stat_name
-        # Count = to ensure the penalty is not given for a count of 2
         self.warning = None
         self.penalty = penalty
         # penalty is being used as the exact Game_Files value
@@ -29,8 +22,6 @@ class Action:
 
             if self.stat == 0:
                 if not self.warning:
-                    # warning = buttons.Button(f"Your pet's {self.stat_name} is low!", 500, 80, (550, 450))
-                    # warning.draw_text()
                     self.warning = True
                 if self.warning:
                     self.penalty +=1

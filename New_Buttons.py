@@ -1,11 +1,7 @@
-# https://www.youtube.com/watch?v=8SzTzvrWaAA&t=1120s
-# New_buttons.py
-
 import pygame
 import Variables
 
 pygame.init()
-
 
 class Button:
     # this Box class will include all 'box' type variables that will be displayed like buttons and a counter at the top

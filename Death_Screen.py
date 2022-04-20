@@ -2,7 +2,6 @@ import pygame
 import sys
 import Variables
 import New_Buttons
-
 import Main_Game_Variables
 
 # -------------- Initialising Variables -------------
@@ -18,6 +17,8 @@ dead = False
 if Main_Game_Variables.pet.dead:
     dead = True
 
+# checks to see if the game is new or not to determine if the game is to be continued
+# from saved data or not
 try:
     open("end_file.txt", "r")
     continue_game = True
@@ -38,6 +39,10 @@ elif Main_Game_Variables.pet.dead_reason == "old age":
 New_Game_button = buttons.Button("New Game", 200, 75, (200, 500))
 End_Game_button = buttons.Button("Quit Game", 200, 75, (900, 500))
 
+# The choice variable is to hold which button the user clicked to follow the
+# Corresponding response. This variable was made when the New_Game and Quit buttons
+# were made. It is kept here so future development will not require this code to be
+# rewritten.
 choice = 0
 
 
@@ -84,8 +89,8 @@ def display_screen(screen, clock):
         click = False
 
         for event in pygame.event.get():
-            # if event.type == pygame.QUIT:
             # The game will not let you quit unless you pick an option
+            # if event.type == pygame.QUIT:
             # pygame.quit()
             # sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:

@@ -3,7 +3,6 @@ import Main_Game_Variables
 import Game_Files
 from datetime import datetime
 
-
 # global day_period, hunger_count, happiness_count, health_count
 
 # ---- subroutines for calculating the decrease in status levels before and after evolution -----
